@@ -13,9 +13,10 @@ public class AddBuiltin extends Builtin {
   public AddBuiltin(String symbol) {
     super(symbol);
   }
-  
+
   @Override
-  public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator, Environment environment) {
+  public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
+      Environment environment) {
     float sum = arguments.stream().map(arg -> {
       Expression evaluatedArg = evaluator.evaluate(arg, environment);
       if (!(evaluatedArg instanceof NumberExpression)) {
