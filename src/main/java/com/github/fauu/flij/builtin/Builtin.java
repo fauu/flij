@@ -28,15 +28,15 @@ public abstract class Builtin implements Evaluable {
   public final String getSymbol() {
     return symbol;
   }
+  
+  protected final void rejectArgumentType() {
+    throw new IllegalArgumentException("Wrong type of arguments passed to " + symbol);
+  }
 
   protected final void validateArgumentCount(List<?> arguments) {
     if (!argumentCountValidator.apply(arguments.size())) {
       throw new IllegalArgumentException("Wrong number of arguments passed to " + symbol);
     }
-  }
-
-  protected final void rejectArgumentType() {
-    throw new IllegalArgumentException("Wrong type of arguments passed to " + symbol);
   }
 
   @Override
