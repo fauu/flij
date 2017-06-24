@@ -1,0 +1,45 @@
+package com.github.fauu.flij.reader.parser;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Objects;
+
+import com.github.fauu.flij.expression.Expression;
+import com.github.fauu.flij.expression.ListExpression;
+import com.github.fauu.flij.reader.lexeme.Lexeme;
+import com.github.fauu.flij.reader.lexeme.TokenType;
+
+public class ListExpressionParser implements Parser<ListExpression> {
+
+  private Parser<Expression> expressionParser;
+
+  @Override
+  public ListExpression parse(Iterator<Lexeme> it, Lexeme current) {
+    Objects.requireNonNull(expressionParser, "ListExpressionParser depends on Parser<Expression>");
+
+    if (current.getTokenType() != TokenType.LIST_START) {
+      throw new ExpressionParseException("List expression does not start with LIST_START token");
+    }
+
+    List<Expression> children = new LinkedList<Expression>();
+
+    while (it.hasNext()) {
+      current = it.next();
+      TokenType t = current.getTokenType();
+
+      if (t == TokenType.LIST_END) {
+        return new ListExpression(children);
+      }
+
+      children.add(expressionParser.parse(it, current));
+    }
+
+    throw new ExpressionParseException("List expression has not been closed");
+  }
+
+  public void setExpressionParser(Parser<Expression> expressionParser) {
+    this.expressionParser = expressionParser;
+  }
+
+}

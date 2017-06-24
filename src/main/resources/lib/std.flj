@@ -1,0 +1,5 @@
+(def inc (fn (n) (+ n 1)))
+
+(def dec (fn (n) (- n 1)))
+
+(def if (fn (condition whentrue whenfalse) (cond condition whentrue else whenfalse)))
