@@ -11,11 +11,13 @@ import com.github.fauu.flij.builtin.CondBuiltin;
 import com.github.fauu.flij.builtin.DefineBuiltin;
 import com.github.fauu.flij.builtin.DivideBuiltin;
 import com.github.fauu.flij.builtin.EqualsBuiltin;
+import com.github.fauu.flij.builtin.IfBuiltin;
 import com.github.fauu.flij.builtin.LambdaBuiltin;
 import com.github.fauu.flij.builtin.LengthBuiltin;
 import com.github.fauu.flij.builtin.MultiplyBuiltin;
 import com.github.fauu.flij.builtin.OrBuiltin;
 import com.github.fauu.flij.builtin.ReverseBuiltin;
+import com.github.fauu.flij.builtin.SqrtBuiltin;
 import com.github.fauu.flij.builtin.SubBuiltin;
 import com.github.fauu.flij.builtin.SubSequenceBuiltin;
 import com.github.fauu.flij.evaluator.AtomEvaluator;
@@ -69,6 +71,7 @@ public class Flij {
         new DefineBuiltin("def"),
         new LambdaBuiltin("fn"),
         new EqualsBuiltin("="),
+        new IfBuiltin("if"),
         new CondBuiltin("cond"),
         new AndBuiltin("and"),
         new OrBuiltin("or"),
@@ -76,6 +79,7 @@ public class Flij {
         new SubBuiltin("-"),
         new MultiplyBuiltin("*"),
         new DivideBuiltin("/"),
+        new SqrtBuiltin("sqrt"),
         new LengthBuiltin("len"),
         new SubSequenceBuiltin("subseq"),
         new ReverseBuiltin("reverse")

@@ -10,7 +10,7 @@ import com.github.fauu.flij.expression.SequenceExpression;
 public class ReverseBuiltin extends Builtin {
 
   public ReverseBuiltin(String symbol) {
-    super(symbol, (n) -> n == 1);
+    super(symbol, n -> n == 1);
   }
 
   @Override

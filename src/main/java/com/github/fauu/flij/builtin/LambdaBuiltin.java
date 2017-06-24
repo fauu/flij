@@ -14,7 +14,7 @@ import com.github.fauu.flij.expression.SymbolExpression;
 public class LambdaBuiltin extends Builtin {
 
   public LambdaBuiltin(String symbol) {
-    super(symbol, (n) -> n == 2);
+    super(symbol, n -> n == 2);
   }
 
   @Override

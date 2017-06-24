@@ -6,22 +6,20 @@ import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.NumberExpression;
-import com.github.fauu.flij.expression.SequenceExpression;
 
-public class LengthBuiltin extends Builtin {
+public class SqrtBuiltin extends Builtin {
 
-  public LengthBuiltin(String symbol) {
+  public SqrtBuiltin(String symbol) {
     super(symbol, n -> n == 1);
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-    
-    float length = ensureArgumentType(arguments.get(0), SequenceExpression.class).getLength();
+    Expression evaluatedArg = evaluator.evaluate(arguments.get(0), environment);
+    float evaluatedArgValue = ensureArgumentType(evaluatedArg, NumberExpression.class).getValue();
 
-    return new NumberExpression(length);
+    return new NumberExpression((float) Math.sqrt((double) evaluatedArgValue));
   }
 
 }

@@ -14,12 +14,14 @@ Run ``build-and-run-repl.sh`` to do just that.
 * fn
 * =
 * cond
+* if
 * and
 * or
 * \+
 * \-
 * \*
 * \/
+* sqrt
 * len
 * subseq
 * reverse
@@ -28,5 +30,6 @@ Run ``build-and-run-repl.sh`` to do just that.
 
 * inc
 * dec
-* if
+* sqr
+* fact
 * not

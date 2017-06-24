@@ -11,16 +11,9 @@ import com.github.fauu.flij.expression.AtomExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.FunctionExpression;
 import com.github.fauu.flij.expression.ListExpression;
-import com.github.fauu.flij.expression.NilExpression;
 import com.github.fauu.flij.expression.SymbolExpression;
 
 public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
-
-  public static final String ADD_SYMBOL = "+";
-  public static final String DEFINE_SYMBOL = "def";
-  public static final String LAMBDA_SYMBOL = "fn";
-
-  public static final Expression NIL = new NilExpression();
 
   private ExpressionEvaluator<Expression> expressionEvaluator;
 
@@ -34,7 +27,7 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
 
     int i = 0;
     for (String symbol : fn.getArgumentSymbols()) {
-      localEnvironment.setDefinition(symbol, argumentExpressions.get(i++));
+      localEnvironment.setDefinition(symbol, expressionEvaluator.evaluate(argumentExpressions.get(i++), environment));
     }
 
     return expressionEvaluator.evaluate(fn.getBody(), localEnvironment);
@@ -60,10 +53,10 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
     String symbol = (String) ((SymbolExpression) firstExpr).getValue();
     Evaluable evaluable = environment.getDefinition(symbol)
         .orElseThrow(() -> new ExpressionEvaluationException("Undefined symbol '" + symbol + "'"));
-    
-    return (evaluable instanceof FunctionExpression) ?
-        evaluateFunction((FunctionExpression) evaluable, arguments, environment) :
-        ((Builtin) evaluable).evaluate(arguments, expressionEvaluator, environment);
+
+    return (evaluable instanceof FunctionExpression)
+        ? evaluateFunction((FunctionExpression) evaluable, arguments, environment)
+        : ((Builtin) evaluable).evaluate(arguments, expressionEvaluator, environment);
   }
 
   public void setExpressionEvaluator(ExpressionEvaluator<Expression> expressionEvaluator) {

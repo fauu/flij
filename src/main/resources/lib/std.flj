@@ -2,6 +2,8 @@
 
 (def dec (fn (n) (- n 1)))
 
-(def if (fn (condition whentrue whenfalse) (cond condition whentrue else whenfalse)))
+(def fact (fn (n) (if (= n 0) 1 (* n (fact (dec 1))))))
+
+(def sqr (fn (n) (* n n)))
 
 (def not (fn (x) (cond x true else false)))

@@ -11,7 +11,7 @@ import com.github.fauu.flij.expression.SequenceExpression;
 public class SubSequenceBuiltin extends Builtin {
 
   public SubSequenceBuiltin(String symbol) {
-    super(symbol, (n) -> n == 2 || n == 3);
+    super(symbol, n -> n == 2 || n == 3);
   }
 
   @Override

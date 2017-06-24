@@ -4,14 +4,13 @@ import java.util.List;
 
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
+import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
-import com.github.fauu.flij.expression.NumberExpression;
-import com.github.fauu.flij.expression.SequenceExpression;
 
-public class LengthBuiltin extends Builtin {
+public class IfBuiltin extends Builtin {
 
-  public LengthBuiltin(String symbol) {
-    super(symbol, n -> n == 1);
+  public IfBuiltin(String symbol) {
+    super(symbol, (n) -> n == 3);
   }
 
   @Override
@@ -19,9 +18,12 @@ public class LengthBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
     
-    float length = ensureArgumentType(arguments.get(0), SequenceExpression.class).getLength();
+    boolean evaluatedCondition = 
+        BooleanExpression.fromExpression(evaluator.evaluate(arguments.get(0), environment)).getValue();
 
-    return new NumberExpression(length);
+    int resultIdx = evaluatedCondition ? 1 : 2;
+
+    return evaluator.evaluate(arguments.get(resultIdx), environment);
   }
 
 }

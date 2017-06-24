@@ -10,7 +10,7 @@ import com.github.fauu.flij.expression.Expression;
 public class CondBuiltin extends Builtin {
 
   public CondBuiltin(String symbol) {
-    super(symbol, (n) -> n % 2 == 0);
+    super(symbol, n -> n % 2 == 0);
   }
 
   @Override

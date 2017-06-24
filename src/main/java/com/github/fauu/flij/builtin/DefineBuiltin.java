@@ -10,7 +10,7 @@ import com.github.fauu.flij.expression.SymbolExpression;
 public class DefineBuiltin extends Builtin {
   
   public DefineBuiltin(String symbol) {
-    super(symbol, (n) -> n == 2);
+    super(symbol, n -> n == 2);
   }
 
   @Override
