@@ -25,12 +25,14 @@ public abstract class AtomExpression<T> extends Expression {
 
   public static AtomExpression<?> fromLexeme(Lexeme lexeme) {
     switch (lexeme.getTokenType()) {
-      case SYMBOL:
-        return new SymbolExpression(lexeme);
       case NUMBER:
         return new NumberExpression(lexeme);
       case BOOLEAN:
         return new BooleanExpression(lexeme);
+      case STRING:
+        return new StringExpression(lexeme);
+      case SYMBOL:
+        return new SymbolExpression(lexeme);
       default:
         throw new IllegalArgumentException("Cannot construct atom expression from given token");
     }

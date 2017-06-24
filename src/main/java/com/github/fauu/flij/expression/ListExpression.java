@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class ListExpression extends Expression {
+public class ListExpression extends Expression implements SequenceExpression<Expression> {
 
   private List<Expression> children;
   
@@ -14,6 +14,16 @@ public class ListExpression extends Expression {
   
   public List<Expression> getChildren() {
     return children;
+  }
+
+  @Override
+  public int getLength() {
+    return children.size();
+  }
+
+  @Override
+  public Expression getElement(int idx) {
+    return children.get(idx);
   }
 
   @Override

@@ -10,23 +10,21 @@ import com.github.fauu.flij.expression.Expression;
 public class CondBuiltin extends Builtin {
 
   public CondBuiltin(String symbol) {
-    super(symbol);
+    super(symbol, (n) -> n % 2 != 0);
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    if (arguments.size() % 2 != 0) {
-      throw new IllegalArgumentException("Builtin cond requires an even number of arguments");
-    }
+    validateArgumentCount(arguments);
 
     for (int i = 0; i < arguments.size(); i += 2) {
-      Expression rawEvaluatedCondition = evaluator.evaluate(arguments.get(i), environment);
+      Expression genericEvaluatedCondition = evaluator.evaluate(arguments.get(i), environment);
       Expression result = arguments.get(i + 1);
 
       boolean evaluation = true;
-      if (rawEvaluatedCondition instanceof BooleanExpression) {
-        evaluation = ((BooleanExpression) rawEvaluatedCondition).getValue();
+      if (genericEvaluatedCondition instanceof BooleanExpression) {
+        evaluation = ((BooleanExpression) genericEvaluatedCondition).getValue();
       }
 
       if (evaluation) {

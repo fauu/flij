@@ -17,7 +17,8 @@ public enum TokenType {
   LIST_END(false, ")"),
   NUMBER(true, Pattern.compile("^(\\+|-)?(\\d)+$")),
   BOOLEAN(true, Pattern.compile("^(true|false)$")),
-  SYMBOL(true, Pattern.compile("^[a-z+-=]+$"));
+  STRING(true, Pattern.compile("^\".*\"$")),
+  SYMBOL(true, Pattern.compile("^[a-z+-=\\$]+$"));
 
   private boolean atomic;
   private String pattern;

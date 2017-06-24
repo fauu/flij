@@ -16,6 +16,7 @@ Run ``build-and-run-repl.sh`` to do just that.
 * cond
 * \+
 * \-
+* len
 
 ### [Standard library](src/main/resources/lib/std.flj)
 

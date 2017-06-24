@@ -10,6 +10,7 @@ import com.github.fauu.flij.builtin.CondBuiltin;
 import com.github.fauu.flij.builtin.DefineBuiltin;
 import com.github.fauu.flij.builtin.EqualsBuiltin;
 import com.github.fauu.flij.builtin.LambdaBuiltin;
+import com.github.fauu.flij.builtin.LengthBuiltin;
 import com.github.fauu.flij.builtin.SubBuiltin;
 import com.github.fauu.flij.evaluator.AtomEvaluator;
 import com.github.fauu.flij.evaluator.Environment;
@@ -64,7 +65,8 @@ public class Flij {
         new EqualsBuiltin("="),
         new CondBuiltin("cond"),
         new AddBuiltin("+"),
-        new SubBuiltin("-")
+        new SubBuiltin("-"),
+        new LengthBuiltin("len")
     ).forEach(b -> environment.setDefinition(b.getSymbol(), b));
   }
   
