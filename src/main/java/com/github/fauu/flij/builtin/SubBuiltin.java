@@ -19,11 +19,8 @@ public class SubBuiltin extends Builtin {
       Environment environment) {
     float result = IntStream.range(0, arguments.size()).mapToObj(i -> {
       Expression evaluatedArg = evaluator.evaluate(arguments.get(i), environment);
-      if (!(evaluatedArg instanceof NumberExpression)) {
-        rejectArgumentType();
-      }
 
-      float value = ((NumberExpression) evaluatedArg).getValue();
+      float value = ensureArgumentType(evaluatedArg, NumberExpression.class).getValue();
 
       return i == 0 ? value : -value;
     }).reduce(0.0f, Float::sum);

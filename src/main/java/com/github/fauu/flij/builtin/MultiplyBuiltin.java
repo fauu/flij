@@ -18,11 +18,8 @@ public class MultiplyBuiltin extends Builtin {
       Environment environment) {
     float result = arguments.stream().map(arg -> {
       Expression evaluatedArg = evaluator.evaluate(arg, environment);
-      if (!(evaluatedArg instanceof NumberExpression)) {
-        rejectArgumentType();
-      }
 
-      return ((NumberExpression) evaluatedArg).getValue();
+      return ensureArgumentType(evaluatedArg, NumberExpression.class).getValue();
     }).reduce(1.0f, (a, b) -> a * b);
 
     return new NumberExpression(result);

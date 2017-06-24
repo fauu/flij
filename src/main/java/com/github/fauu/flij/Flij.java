@@ -8,6 +8,7 @@ import java.util.Arrays;
 import com.github.fauu.flij.builtin.AddBuiltin;
 import com.github.fauu.flij.builtin.CondBuiltin;
 import com.github.fauu.flij.builtin.DefineBuiltin;
+import com.github.fauu.flij.builtin.DivideBuiltin;
 import com.github.fauu.flij.builtin.EqualsBuiltin;
 import com.github.fauu.flij.builtin.LambdaBuiltin;
 import com.github.fauu.flij.builtin.LengthBuiltin;
@@ -68,6 +69,7 @@ public class Flij {
         new AddBuiltin("+"),
         new SubBuiltin("-"),
         new MultiplyBuiltin("*"),
+        new DivideBuiltin("/"),
         new LengthBuiltin("len")
     ).forEach(b -> environment.setDefinition(b.getSymbol(), b));
   }

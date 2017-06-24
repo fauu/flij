@@ -29,8 +29,13 @@ public abstract class Builtin implements Evaluable {
     return symbol;
   }
   
-  protected final void rejectArgumentType() {
-    throw new IllegalArgumentException("Wrong type of arguments passed to " + symbol);
+  @SuppressWarnings("unchecked")
+  protected final <T> T ensureArgumentType(Expression argument, Class<T> clazz) {
+    if (!clazz.isInstance(argument)) {
+      throw new IllegalArgumentException("Wrong type of arguments passed to " + symbol);
+    }
+    
+    return (T) argument;
   }
 
   protected final void validateArgumentCount(List<?> arguments) {

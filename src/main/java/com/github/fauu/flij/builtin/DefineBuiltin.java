@@ -18,12 +18,7 @@ public class DefineBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    Expression symbolExpr = arguments.get(0);
-    if (!(symbolExpr instanceof SymbolExpression)) {
-      rejectArgumentType();
-    }
-
-    String symbol = ((SymbolExpression) symbolExpr).getValue();
+    String symbol = ensureArgumentType(arguments.get(0), SymbolExpression.class).getValue();
     Expression definition = evaluator.evaluate(arguments.get(1), environment);
     environment.setDefinition(symbol, definition);
 

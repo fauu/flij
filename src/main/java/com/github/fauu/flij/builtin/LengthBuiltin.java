@@ -19,12 +19,7 @@ public class LengthBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
     
-    Expression arg = arguments.get(0);
-    if (!(arg instanceof SequenceExpression)) {
-      rejectArgumentType();
-    }
-    
-    float length = ((SequenceExpression<?>) arg).getLength();
+    float length = ensureArgumentType(arguments.get(0), SequenceExpression.class).getLength();
 
     return new NumberExpression(length);
   }

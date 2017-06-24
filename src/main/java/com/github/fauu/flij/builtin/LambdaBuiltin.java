@@ -22,19 +22,10 @@ public class LambdaBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    Expression argumentListExpr = arguments.get(0);
-    if (!(argumentListExpr instanceof ListExpression)) {
-      rejectArgumentType();
-    }
-
-    ListExpression argumentList = (ListExpression) argumentListExpr;
-    List<String> argumentSymbols = argumentList.getChildren().stream().map(arg -> {
-      if (!(arg instanceof SymbolExpression)) {
-        rejectArgumentType();
-      }
-
-      return ((SymbolExpression) arg).getValue();
-    }).collect(toList());
+    ListExpression argumentList = ensureArgumentType(arguments.get(0), ListExpression.class);
+    List<String> argumentSymbols = argumentList.getChildren().stream()
+        .map(arg -> ensureArgumentType(arg, SymbolExpression.class).getValue())
+        .collect(toList());
 
     return new FunctionExpression(argumentSymbols, arguments.get(1));
   }
