@@ -14,14 +14,19 @@ Run ``build-and-run-repl.sh`` to do just that.
 * fn
 * =
 * cond
+* and
+* or
 * \+
 * \-
 * \*
 * \/
 * len
+* subseq
+* reverse
 
 ### [Standard library](src/main/resources/lib/std.flj)
 
 * inc
 * dec
 * if
+* not
