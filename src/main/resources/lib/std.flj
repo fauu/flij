@@ -3,3 +3,5 @@
 (def dec (fn (n) (- n 1)))
 
 (def if (fn (condition whentrue whenfalse) (cond condition whentrue else whenfalse)))
+
+(def not (fn (x) (cond x true else false)))

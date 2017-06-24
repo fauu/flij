@@ -22,5 +22,23 @@ public class BooleanExpression extends AtomExpression<Boolean> {
         throw new IllegalArgumentException("Cannot construct BooleanExpression");
     }
   }
+
+  public boolean isTrue() {
+    return value == true;
+  }
+  
+  public boolean isFalse() {
+    return value == false;
+  }
+  
+  public static BooleanExpression fromExpression(Expression expression) {
+    boolean value = true;
+
+    if (expression instanceof BooleanExpression && !((BooleanExpression) expression).getValue()) {
+      value = false;
+    }
+    
+    return new BooleanExpression(value);
+  }
   
 }

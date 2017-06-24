@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 import com.github.fauu.flij.builtin.AddBuiltin;
+import com.github.fauu.flij.builtin.AndBuiltin;
 import com.github.fauu.flij.builtin.CondBuiltin;
 import com.github.fauu.flij.builtin.DefineBuiltin;
 import com.github.fauu.flij.builtin.DivideBuiltin;
@@ -13,7 +14,10 @@ import com.github.fauu.flij.builtin.EqualsBuiltin;
 import com.github.fauu.flij.builtin.LambdaBuiltin;
 import com.github.fauu.flij.builtin.LengthBuiltin;
 import com.github.fauu.flij.builtin.MultiplyBuiltin;
+import com.github.fauu.flij.builtin.OrBuiltin;
+import com.github.fauu.flij.builtin.ReverseBuiltin;
 import com.github.fauu.flij.builtin.SubBuiltin;
+import com.github.fauu.flij.builtin.SubSequenceBuiltin;
 import com.github.fauu.flij.evaluator.AtomEvaluator;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.Evaluator;
@@ -66,11 +70,15 @@ public class Flij {
         new LambdaBuiltin("fn"),
         new EqualsBuiltin("="),
         new CondBuiltin("cond"),
+        new AndBuiltin("and"),
+        new OrBuiltin("or"),
         new AddBuiltin("+"),
         new SubBuiltin("-"),
         new MultiplyBuiltin("*"),
         new DivideBuiltin("/"),
-        new LengthBuiltin("len")
+        new LengthBuiltin("len"),
+        new SubSequenceBuiltin("subseq"),
+        new ReverseBuiltin("reverse")
     ).forEach(b -> environment.setDefinition(b.getSymbol(), b));
   }
   

@@ -10,7 +10,7 @@ import com.github.fauu.flij.expression.Expression;
 public class CondBuiltin extends Builtin {
 
   public CondBuiltin(String symbol) {
-    super(symbol, (n) -> n % 2 != 0);
+    super(symbol, (n) -> n % 2 == 0);
   }
 
   @Override
@@ -18,21 +18,18 @@ public class CondBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
+    Expression currentResult = Expression.NIL;
     for (int i = 0; i < arguments.size(); i += 2) {
-      Expression genericEvaluatedCondition = evaluator.evaluate(arguments.get(i), environment);
-      Expression result = arguments.get(i + 1);
+      BooleanExpression evaluatedCondition = 
+          BooleanExpression.fromExpression(evaluator.evaluate(arguments.get(i), environment));
 
-      boolean evaluation = true;
-      if (genericEvaluatedCondition instanceof BooleanExpression) {
-        evaluation = ((BooleanExpression) genericEvaluatedCondition).getValue();
-      }
-
-      if (evaluation) {
-        return evaluator.evaluate(result, environment);
+      currentResult = arguments.get(i + 1);
+      if (evaluatedCondition.getValue()) {
+        break;
       }
     }
 
-    return Expression.NIL;
+    return evaluator.evaluate(currentResult, environment);
   }
 
 }
