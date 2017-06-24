@@ -16,8 +16,9 @@ public class DivideBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    Expression maybeNumber = evaluator.evaluate(arguments.get(0), environment);
+    validateArgumentCount(arguments);
 
+    Expression maybeNumber = evaluator.evaluate(arguments.get(0), environment);
     float number = ensureArgumentType(maybeNumber, NumberExpression.class).getValue();
     if (arguments.size() > 1) {
       float result = arguments.stream().skip(1).map(divisorExpr -> {

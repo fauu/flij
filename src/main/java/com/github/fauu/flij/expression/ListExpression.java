@@ -12,10 +12,6 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
   public ListExpression(List<Expression> children) {
     this.children = Collections.unmodifiableList(children);
   }
-  
-  public List<Expression> getChildren() {
-    return children;
-  }
 
   @Override
   public int getLength() {
@@ -25,6 +21,11 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
   @Override
   public Expression getElement(int idx) {
     return children.get(idx);
+  }
+
+  @Override
+  public List<Expression> getElements() {
+    return children;
   }
 
   @Override
@@ -46,10 +47,6 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
 
     builder.append('(');
     IntStream.range(0, children.size()).forEach(idx -> {
-      if (idx > 0) {
-        builder.append(' ');
-      }
-
       builder.append(children.get(idx));
 
       if (idx < children.size() - 1) {

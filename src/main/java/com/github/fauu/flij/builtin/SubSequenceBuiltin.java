@@ -25,6 +25,10 @@ public class SubSequenceBuiltin extends Builtin {
     if (arguments.size() == 3) {
       toIdx = ensureArgumentType(arguments.get(2), NumberExpression.class).getValue();
     }
+    
+    if (fromIdx < 0 || fromIdx > toIdx) {
+      return Expression.NIL;
+    }
 
     return seq.subSequence((int) fromIdx, (int) toIdx);
   }

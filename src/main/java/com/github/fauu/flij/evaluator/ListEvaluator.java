@@ -20,7 +20,7 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
   private Expression evaluateFunction(FunctionExpression fn, List<Expression> argumentExpressions,
       Environment environment) {
     if (argumentExpressions.size() != fn.getArity()) {
-      throw new ExpressionEvaluationException("Wrong number of arguments supplied to function");
+      throw new WrongArgumentCountException(fn.toString());
     }
 
     Environment localEnvironment = new Environment(environment);
@@ -34,17 +34,20 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
   }
 
   @Override
-  public Expression evaluate(ListExpression input, Environment environment) {
+  public Expression evaluate(ListExpression list, Environment environment) {
     Objects.requireNonNull(expressionEvaluator, "ListEvaluator depends on ExpressionEvaluator<Expression>");
-
-    ListExpression expr = (ListExpression) input;
-    Expression firstExpr = expr.getChildren().get(0);
-
-    if ((firstExpr instanceof AtomExpression) && !(firstExpr instanceof SymbolExpression)) {
-      return input;
+    
+    if (list.getLength() == 0) {
+      return list;
     }
 
-    List<Expression> arguments = expr.getChildren().stream().skip(1).collect(toList());
+    Expression firstExpr = list.getElement(0);
+
+    if ((firstExpr instanceof AtomExpression) && !(firstExpr instanceof SymbolExpression)) {
+      return list;
+    }
+
+    List<Expression> arguments = list.getElements().stream().skip(1).collect(toList());
 
     if (firstExpr instanceof FunctionExpression) {
       return evaluateFunction((FunctionExpression) firstExpr, arguments, environment);

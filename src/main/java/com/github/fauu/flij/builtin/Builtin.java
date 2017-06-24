@@ -6,6 +6,8 @@ import java.util.function.Function;
 import com.github.fauu.flij.Evaluable;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
+import com.github.fauu.flij.evaluator.WrongArgumentCountException;
+import com.github.fauu.flij.evaluator.WrongArgumentTypeException;
 import com.github.fauu.flij.expression.Expression;
 
 public abstract class Builtin implements Evaluable {
@@ -32,7 +34,7 @@ public abstract class Builtin implements Evaluable {
   @SuppressWarnings("unchecked")
   protected final <T> T ensureArgumentType(Expression argument, Class<T> clazz) {
     if (!clazz.isInstance(argument)) {
-      throw new IllegalArgumentException("Wrong type of arguments passed to " + symbol);
+      throw new WrongArgumentTypeException(symbol);
     }
     
     return (T) argument;
@@ -40,13 +42,13 @@ public abstract class Builtin implements Evaluable {
 
   protected final void validateArgumentCount(List<?> arguments) {
     if (!argumentCountValidator.apply(arguments.size())) {
-      throw new IllegalArgumentException("Wrong number of arguments passed to " + symbol);
+      throw new WrongArgumentCountException(symbol);
     }
   }
 
   @Override
   public String toString() {
-    return "<builtin>";
+    return "<built-in>";
   }
 
 }

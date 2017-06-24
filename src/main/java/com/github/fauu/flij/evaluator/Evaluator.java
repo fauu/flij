@@ -20,7 +20,7 @@ public class Evaluator implements ExpressionEvaluator<Expression> {
     } else if (input instanceof ListExpression) {
       return listEvaluator.evaluate((ListExpression) input, environment);
     } else {
-      throw new ExpressionEvaluationException("Unexpected expression type");
+      return Expression.NIL;
     }
   }
   

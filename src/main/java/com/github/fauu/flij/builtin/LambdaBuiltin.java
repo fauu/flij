@@ -23,7 +23,7 @@ public class LambdaBuiltin extends Builtin {
     validateArgumentCount(arguments);
 
     ListExpression argumentList = ensureArgumentType(arguments.get(0), ListExpression.class);
-    List<String> argumentSymbols = argumentList.getChildren().stream()
+    List<String> argumentSymbols = argumentList.getElements().stream()
         .map(arg -> ensureArgumentType(arg, SymbolExpression.class).getValue())
         .collect(toList());
 

@@ -35,7 +35,7 @@ public class ListExpressionParser implements Parser<ListExpression> {
       children.add(expressionParser.parse(it, current));
     }
 
-    throw new ExpressionParseException("List expression has not been closed");
+    throw new ExpressionParseException("List expression not closed");
   }
 
   public void setExpressionParser(Parser<Expression> expressionParser) {

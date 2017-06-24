@@ -6,14 +6,13 @@ import java.util.Scanner;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.Evaluator;
 import com.github.fauu.flij.evaluator.ExpressionEvaluationException;
-import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.reader.ExpressionReadException;
 import com.github.fauu.flij.reader.Reader;
 
 public class Repl {
 
   public static final String EXIT_COMMAND = "\\exit";
-  public static final String LIST_COMMAND = "\\list";
+  public static final String LIST_COMMAND = "\\symbols";
 
   public Reader reader;
   public Evaluator evaluator;
@@ -39,29 +38,24 @@ public class Repl {
 
       String input = scanner.nextLine().trim();
 
-      if (input == null) {
-        break;
+      if (input.isEmpty()) {
+        continue;
       }
 
       if (input.equalsIgnoreCase(EXIT_COMMAND)) {
-        System.out.println("Exiting.");
         break;
       }
 
       if (input.equalsIgnoreCase(LIST_COMMAND)) {
-        System.out.println("Global environment definitions:");
-        environment.getDefinitions().forEach((s, expr) -> System.out.println(s + " := " + expr));
+        System.out.println("Defined symbols:");
+        environment.getDefinitions().forEach((s, expr) -> System.out.println(s + " : " + expr));
         continue;
       }
 
-      Expression result;
       try {
-        result = evaluator.evaluate(reader.read(input), environment);
-        System.out.println(result);
-      } catch (ExpressionReadException e) {
+        System.out.println(evaluator.evaluate(reader.read(input), environment));
+      } catch (ExpressionReadException|ExpressionEvaluationException e) {
         System.out.println(e.getMessage());
-      } catch (ExpressionEvaluationException e) {
-        System.out.println("Evaluation error: " + e.getMessage());
       }
     }
 

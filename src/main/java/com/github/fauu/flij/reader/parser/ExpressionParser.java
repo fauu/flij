@@ -32,7 +32,7 @@ public class ExpressionParser implements Parser<Expression> {
       return delegate.parse(it, current);
     }
 
-    throw new ExpressionParseException("Unexpected token '" + t + "'");
+    throw new ExpressionParseException("Unexpected token " + t);
   }
 
   public void setListParser(Parser<ListExpression> listParser) {
