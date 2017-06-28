@@ -13,6 +13,7 @@ import static java.util.stream.Collectors.toMap;
 
 public enum TokenType {
 
+  QUOTE(false, "'"),
   LIST_START(false, "("),
   LIST_END(false, ")"),
   NUMBER(true, Pattern.compile("^(\\+|-)?(\\d)+(\\.(\\d)+)?$")),

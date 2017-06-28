@@ -6,6 +6,7 @@ import java.util.Objects;
 import com.github.fauu.flij.expression.AtomExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
+import com.github.fauu.flij.expression.QuotedExpression;
 import com.github.fauu.flij.reader.lexeme.Lexeme;
 import com.github.fauu.flij.reader.lexeme.TokenType;
 
@@ -19,6 +20,12 @@ public class ExpressionParser implements Parser<Expression> {
     Objects.requireNonNull(listParser, "ExpressionParser depends on a Parser<ListExpression>");
     Objects.requireNonNull(atomParser, "ExpressionParser depends on a Parser<AtomExpression>");
     
+    boolean quoted = false;
+    if (current.getTokenType() == TokenType.QUOTE) {
+      quoted = true;
+      current = it.next();
+    }
+    
     TokenType t = current.getTokenType();
     
     Parser<? extends Expression> delegate = null;
@@ -28,11 +35,17 @@ public class ExpressionParser implements Parser<Expression> {
       delegate = atomParser;
     }
     
-    if (delegate != null) {
-      return delegate.parse(it, current);
+    if (delegate == null) {
+      throw new ExpressionParseException("Unexpected token " + t);
     }
-
-    throw new ExpressionParseException("Unexpected token " + t);
+    
+    Expression parsedExpression = delegate.parse(it, current);
+      
+    if (quoted) {
+      parsedExpression = new QuotedExpression(parsedExpression);
+    }
+    
+    return parsedExpression;
   }
 
   public void setListParser(Parser<ListExpression> listParser) {
