@@ -10,21 +10,16 @@ Run ``build-and-run-repl.sh`` to do just that.
 
 ### [Built-ins](src/main/java/com/github/fauu/flij/builtin/)
 
-* putln
-* put
+* put, putln
 * def
 * fn
 * quote
 * eval
 * =
-* cond
-* if
-* and
-* or
-* \+
-* \-
-* \*
-* \/
+* <, <=, >, >=
+* cond, if
+* and, or
+* \+, \-, \*, \/
 * sqrt
 * len
 * subseq

@@ -14,7 +14,9 @@ public class CompareBuiltin extends Builtin {
 
   public enum Variant {
     LESS_THAN,
-    MORE_THAN;
+    LESS_THAN_OR_EQUAL_TO,
+    MORE_THAN,
+    MORE_THAN_OR_EQUAL_TO;
   }
 
   private Variant variant;
@@ -43,8 +45,14 @@ public class CompareBuiltin extends Builtin {
         case LESS_THAN:
           partialResult = a < b;
           break;
+        case LESS_THAN_OR_EQUAL_TO:
+          partialResult = a <= b;
+          break;
         case MORE_THAN:
           partialResult = a > b;
+          break;
+        case MORE_THAN_OR_EQUAL_TO:
+          partialResult = a >= b;
           break;
         default:
           partialResult = true;
