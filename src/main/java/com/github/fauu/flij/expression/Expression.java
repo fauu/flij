@@ -5,5 +5,9 @@ import com.github.fauu.flij.Evaluable;
 public abstract class Expression implements Evaluable {
   
   public static NilExpression NIL = new NilExpression();
+
+  public String toPrinterString() {
+    return toString();
+  }
   
 }

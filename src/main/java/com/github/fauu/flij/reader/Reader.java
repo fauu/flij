@@ -46,8 +46,8 @@ public class Reader {
     return expr;
   }
   
-  private boolean isCharAtomEnding(char c) {
-    return c == ' ' || TokenType.existsForChar(c);
+  private boolean isCharAtomEnding(char c, boolean inStringLiteral) {
+    return (!inStringLiteral && c == ' ') || TokenType.existsForChar(c);
   }
 
   private List<Lexeme> lex(String input) {
@@ -63,7 +63,18 @@ public class Reader {
         i++;
       } else {
         int start = i;
-        while (i < input.length() && !isCharAtomEnding(input.charAt(i))) {
+        boolean inStringLiteral = false;
+        while (i < input.length()) {
+          char cc = input.charAt(i);
+
+          if (cc == '"') {
+            inStringLiteral = true;
+          }
+
+          if (isCharAtomEnding(cc, inStringLiteral)) {
+            break;
+          }
+
           i++;
         }
         

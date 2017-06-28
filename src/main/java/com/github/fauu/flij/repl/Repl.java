@@ -3,6 +3,7 @@ package com.github.fauu.flij.repl;
 import java.util.Objects;
 import java.util.Scanner;
 
+import com.github.fauu.flij.Printer;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.Evaluator;
 import com.github.fauu.flij.evaluator.ExpressionEvaluationException;
@@ -17,15 +18,18 @@ public class Repl {
   public Reader reader;
   public Evaluator evaluator;
   public Environment environment;
-
-  public Repl(Reader reader, Evaluator evaluator, Environment environment) {
+  public Printer printer;
+  
+  public Repl(Reader reader, Evaluator evaluator, Environment environment, Printer printer) {
     Objects.requireNonNull(reader, "REPL depends on a Reader");
     Objects.requireNonNull(evaluator, "REPL depends on a Evaluator");
-    Objects.requireNonNull(evaluator, "REPL depends on an Environment");
+    Objects.requireNonNull(environment, "REPL depends on an Environment");
+    Objects.requireNonNull(printer, "REPL depends on a Printer");
 
     this.reader = reader;
     this.evaluator = evaluator;
     this.environment = environment;
+    this.printer = printer;
   }
 
   public void run() {
@@ -53,7 +57,7 @@ public class Repl {
       }
 
       try {
-        System.out.println(evaluator.evaluate(reader.read(input), environment));
+        printer.print(evaluator.evaluate(reader.read(input), environment));
       } catch (ExpressionReadException|ExpressionEvaluationException e) {
         System.out.println(e.getMessage());
       }

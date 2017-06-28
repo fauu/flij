@@ -16,6 +16,7 @@ import com.github.fauu.flij.builtin.LambdaBuiltin;
 import com.github.fauu.flij.builtin.LengthBuiltin;
 import com.github.fauu.flij.builtin.MultiplyBuiltin;
 import com.github.fauu.flij.builtin.OrBuiltin;
+import com.github.fauu.flij.builtin.PrintBuiltin;
 import com.github.fauu.flij.builtin.ReverseBuiltin;
 import com.github.fauu.flij.builtin.SqrtBuiltin;
 import com.github.fauu.flij.builtin.SubBuiltin;
@@ -38,7 +39,7 @@ public class Flij {
     Evaluator evaluator = createEvaluator();
     Environment environment = createGlobalEnvironment(reader, evaluator);
 
-    Repl repl = new Repl(reader, evaluator, environment);
+    Repl repl = new Repl(reader, evaluator, environment, new Printer());
     repl.run();
   }
 
@@ -68,6 +69,8 @@ public class Flij {
 
   private void initBuiltins(Environment environment) {
     Arrays.asList(
+        new PrintBuiltin(PrintBuiltin.Variant.NEWLINE, "putln"),
+        new PrintBuiltin(PrintBuiltin.Variant.NO_NEWLINE, "put"),
         new DefineBuiltin("def"),
         new LambdaBuiltin("fn"),
         new EqualsBuiltin("="),

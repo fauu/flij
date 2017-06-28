@@ -42,9 +42,9 @@ public class StringExpression extends AtomExpression<String> implements Sequence
   public StringExpression reversed() {
     return new StringExpression(new StringBuilder(value).reverse().toString());
   }
-
+  
   @Override
-  public String toString() {
+  public String toPrinterString() {
     return "\"" + value + "\"";
   }
 
