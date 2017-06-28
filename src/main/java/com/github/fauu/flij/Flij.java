@@ -11,12 +11,14 @@ import com.github.fauu.flij.builtin.CondBuiltin;
 import com.github.fauu.flij.builtin.DefineBuiltin;
 import com.github.fauu.flij.builtin.DivideBuiltin;
 import com.github.fauu.flij.builtin.EqualsBuiltin;
+import com.github.fauu.flij.builtin.EvalBuiltin;
 import com.github.fauu.flij.builtin.IfBuiltin;
 import com.github.fauu.flij.builtin.LambdaBuiltin;
 import com.github.fauu.flij.builtin.LengthBuiltin;
 import com.github.fauu.flij.builtin.MultiplyBuiltin;
 import com.github.fauu.flij.builtin.OrBuiltin;
 import com.github.fauu.flij.builtin.PrintBuiltin;
+import com.github.fauu.flij.builtin.QuoteBuiltin;
 import com.github.fauu.flij.builtin.ReverseBuiltin;
 import com.github.fauu.flij.builtin.SqrtBuiltin;
 import com.github.fauu.flij.builtin.SubBuiltin;
@@ -73,6 +75,8 @@ public class Flij {
         new PrintBuiltin(PrintBuiltin.Variant.NO_NEWLINE, "put"),
         new DefineBuiltin("def"),
         new LambdaBuiltin("fn"),
+        new QuoteBuiltin("quote"),
+        new EvalBuiltin("eval"),
         new EqualsBuiltin("="),
         new IfBuiltin("if"),
         new CondBuiltin("cond"),

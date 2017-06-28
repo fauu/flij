@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.github.fauu.flij.expression.AtomExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
+import com.github.fauu.flij.expression.QuotedExpression;
 
 public class Evaluator implements ExpressionEvaluator<Expression> {
   
@@ -18,7 +19,9 @@ public class Evaluator implements ExpressionEvaluator<Expression> {
     if (input instanceof AtomExpression) {
       return atomEvaluator.evaluate((AtomExpression<?>) input, environment);
     } else if (input instanceof ListExpression) {
-      return listEvaluator.evaluate((ListExpression) input, environment);
+      return evaluate(listEvaluator.evaluate((ListExpression) input, environment), environment);
+    } else if (input instanceof QuotedExpression) {
+      return ((QuotedExpression) input).getValue();
     } else {
       return Expression.NIL;
     }

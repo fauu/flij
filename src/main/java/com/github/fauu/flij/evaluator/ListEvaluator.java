@@ -7,7 +7,6 @@ import static java.util.stream.Collectors.toList;
 
 import com.github.fauu.flij.Evaluable;
 import com.github.fauu.flij.builtin.Builtin;
-import com.github.fauu.flij.expression.AtomExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.FunctionExpression;
 import com.github.fauu.flij.expression.ListExpression;
@@ -43,14 +42,14 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
 
     Expression firstExpr = list.getElement(0);
 
-    if ((firstExpr instanceof AtomExpression) && !(firstExpr instanceof SymbolExpression)) {
-      return list;
-    }
-
     List<Expression> arguments = list.getElements().stream().skip(1).collect(toList());
 
     if (firstExpr instanceof FunctionExpression) {
       return evaluateFunction((FunctionExpression) firstExpr, arguments, environment);
+    }
+    
+    if (!(firstExpr instanceof SymbolExpression)) {
+      throw new ExpressionEvaluationException("Expected symbol at list start");
     }
 
     String symbol = (String) ((SymbolExpression) firstExpr).getValue();
