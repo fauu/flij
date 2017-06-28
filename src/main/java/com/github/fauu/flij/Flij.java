@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import com.github.fauu.flij.builtin.AddBuiltin;
 import com.github.fauu.flij.builtin.AndBuiltin;
+import com.github.fauu.flij.builtin.CompareBuiltin;
 import com.github.fauu.flij.builtin.CondBuiltin;
 import com.github.fauu.flij.builtin.DefineBuiltin;
 import com.github.fauu.flij.builtin.DivideBuiltin;
@@ -78,6 +79,8 @@ public class Flij {
         new QuoteBuiltin("quote"),
         new EvalBuiltin("eval"),
         new EqualsBuiltin("="),
+        new CompareBuiltin("<", CompareBuiltin.Variant.LESS_THAN),
+        new CompareBuiltin(">", CompareBuiltin.Variant.MORE_THAN),
         new IfBuiltin("if"),
         new CondBuiltin("cond"),
         new AndBuiltin("and"),

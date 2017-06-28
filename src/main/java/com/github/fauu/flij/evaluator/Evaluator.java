@@ -19,7 +19,7 @@ public class Evaluator implements ExpressionEvaluator<Expression> {
     if (input instanceof AtomExpression) {
       return atomEvaluator.evaluate((AtomExpression<?>) input, environment);
     } else if (input instanceof ListExpression) {
-      return evaluate(listEvaluator.evaluate((ListExpression) input, environment), environment);
+      return listEvaluator.evaluate((ListExpression) input, environment);
     } else if (input instanceof QuotedExpression) {
       return ((QuotedExpression) input).getValue();
     } else {

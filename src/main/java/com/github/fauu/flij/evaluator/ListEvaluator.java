@@ -41,7 +41,7 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
     }
 
     Expression firstExpr = list.getElement(0);
-
+    
     List<Expression> arguments = list.getElements().stream().skip(1).collect(toList());
 
     if (firstExpr instanceof FunctionExpression) {
@@ -55,10 +55,16 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
     String symbol = (String) ((SymbolExpression) firstExpr).getValue();
     Evaluable evaluable = environment.getDefinition(symbol)
         .orElseThrow(() -> new ExpressionEvaluationException("Undefined symbol '" + symbol + "'"));
-
-    return (evaluable instanceof FunctionExpression)
-        ? evaluateFunction((FunctionExpression) evaluable, arguments, environment)
-        : ((Builtin) evaluable).evaluate(arguments, expressionEvaluator, environment);
+    
+    if (evaluable instanceof FunctionExpression) {
+      return evaluateFunction((FunctionExpression) evaluable, arguments, environment);
+    } else if (evaluable instanceof Builtin) {
+      return ((Builtin) evaluable).evaluate(arguments, expressionEvaluator, environment);
+    } else if (evaluable instanceof Expression) {
+      return expressionEvaluator.evaluate((Expression) evaluable, environment);
+    }
+    
+    throw new ExpressionEvaluationException("Unexpected evaluable");
   }
 
   public void setExpressionEvaluator(ExpressionEvaluator<Expression> expressionEvaluator) {
