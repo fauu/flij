@@ -1,17 +1,40 @@
-(def nil '())
+(def nil
+  '())
 
-(def inc (fn (n) (+ n 1)))
+(def inc
+  (fn (n)
+    (+ n 1)))
 
-(def dec (fn (n) (- n 1)))
+(def dec
+  (fn (n)
+    (- n 1)))
 
-(def fact (fn (n) (if (= n 0) 1 (* n (fact (dec n))))))
+(def fact
+  (fn (n)
+    (if (= n 0) 
+      1 
+      (* n (fact (dec n))))))
 
-(def sqr (fn (n) (* n n)))
+(def sqr
+  (fn (n)
+    (* n n)))
 
-(def abs (fn (x) (if (>= x 0) x (- 0 x))))
+(def abs
+  (fn (x)
+    (if (>= x 0) x (- 0 x))))
 
-(def not (fn (x) (if x false true)))
+(def not
+  (fn (x)
+    (if x false true)))
 
-(def empty? (fn (l) (= nil l)))
+(def empty?
+  (fn (l)
+    (= nil l)))
 
-(def map (fn (sym lst) (if (empty? lst) '() (prepend (apply sym (head lst)) (map sym (tail lst))))))	    
+(def map 
+  (fn (sym lst) 
+	(if (empty? lst) 
+	  '() 
+	  (prepend 
+	    (apply sym (head lst))
+	    (map sym (tail lst))))))	    
