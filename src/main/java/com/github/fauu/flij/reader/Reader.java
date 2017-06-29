@@ -36,6 +36,10 @@ public class Reader {
   }
 
   private Expression parse(List<Lexeme> lexemes) {
+    if (lexemes.size() == 0) {
+      return Expression.NIL;
+    }
+
     Iterator<Lexeme> it = lexemes.iterator();
     Expression expr =  expressionParser.parse(it, it.next());
     
@@ -81,9 +85,13 @@ public class Reader {
         boolean matchedToken = false;
 
         String token = input.substring(start, i);
-        for (TokenType tokenType : TokenType.atomicValues) {
-          Matcher matcher = tokenType.getRegexPattern().matcher(token);
+        for (TokenType tokenType : TokenType.patternValues) {
+          Matcher matcher = tokenType.getPatternValue().matcher(token);
           if (matcher.find()) {
+            if (tokenType == TokenType.COMMENT_START) {
+              return output;
+            }
+
             output.add(new Lexeme(tokenType, matcher.group()));
             matchedToken = true;
             break;

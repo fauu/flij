@@ -9,6 +9,10 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
 
   private List<Expression> children;
   
+  public ListExpression() {
+    this.children = Collections.emptyList();
+  }
+  
   public ListExpression(List<Expression> children) {
     this.children = Collections.unmodifiableList(children);
   }
@@ -43,6 +47,10 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
 
   @Override
   public String toString() {
+    if (children.size() == 0) {
+      return "nil";
+    }
+
     StringBuilder builder = new StringBuilder();
 
     builder.append('(');

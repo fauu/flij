@@ -6,4 +6,8 @@
 
 (def sqr (fn (n) (* n n)))
 
+(def abs (fn (x) (if (>= 0 x) x (- 0 x))))
+
 (def not (fn (x) (cond x true else false)))
+
+;; FIXME: broken!

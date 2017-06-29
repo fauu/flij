@@ -31,7 +31,7 @@ public class ExpressionParser implements Parser<Expression> {
     Parser<? extends Expression> delegate = null;
     if (t == TokenType.LIST_START) {
       delegate = listParser;
-    } else if (t.isAtomic()) {
+    } else if (t.isPatternValue()) {
       delegate = atomParser;
     }
     

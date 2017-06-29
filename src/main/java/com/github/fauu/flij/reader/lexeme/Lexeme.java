@@ -6,7 +6,7 @@ public class Lexeme {
   private String value;
 
   public Lexeme(TokenType type) {
-    this(type, type.getPattern());
+    this(type, String.valueOf(type.getCharacterValue()));
   }
 
   public Lexeme(TokenType type, String value) {

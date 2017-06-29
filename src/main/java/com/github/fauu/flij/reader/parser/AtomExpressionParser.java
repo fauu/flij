@@ -9,7 +9,7 @@ public class AtomExpressionParser implements Parser<AtomExpression<?>> {
 
   @Override
   public AtomExpression<?> parse(Iterator<Lexeme> it, Lexeme current) {
-    if (current.getTokenType().isAtomic()) {
+    if (current.getTokenType().isPatternValue()) {
       return AtomExpression.fromLexeme(current);
     } else {
       throw new ExpressionParseException("Unexpected atom token");
