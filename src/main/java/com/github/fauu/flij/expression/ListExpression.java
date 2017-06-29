@@ -1,8 +1,10 @@
 package com.github.fauu.flij.expression;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class ListExpression extends Expression implements SequenceExpression<ListExpression, Expression> {
@@ -11,6 +13,10 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
   
   public ListExpression() {
     this.children = Collections.emptyList();
+  }
+  
+  public ListExpression(Expression first, Expression second) {
+    this(new LinkedList<Expression>(Arrays.asList(first, second)));
   }
   
   public ListExpression(List<Expression> children) {
@@ -64,6 +70,24 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
     builder.append(')');
     
     return builder.toString();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(children);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    } else if (!(obj instanceof ListExpression)) {
+      return false;
+    } else {
+      ListExpression other = (ListExpression) obj;
+      
+      return getElements().equals(other.getElements());
+    }
   }
 
 }

@@ -21,7 +21,7 @@ public class Evaluator implements ExpressionEvaluator<Expression> {
     } else if (input instanceof ListExpression) {
       return listEvaluator.evaluate((ListExpression) input, environment);
     } else if (input instanceof QuotedExpression) {
-      return ((QuotedExpression) input).getValue();
+      return input;
     } else {
       return Expression.NIL;
     }

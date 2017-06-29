@@ -14,7 +14,7 @@ public enum TokenType {
   QUOTE('\''),
   LIST_START('('),
   LIST_END(')'),
-  COMMENT_START(Pattern.compile("^;;$")),
+  COMMENT_START(Pattern.compile("^;;.*$")),
   NUMBER(Pattern.compile("^(\\+|-)?(\\d)+(\\.(\\d)+)?$")),
   BOOLEAN(Pattern.compile("^(true|false)$")),
   STRING(Pattern.compile("^\".*\"$")),

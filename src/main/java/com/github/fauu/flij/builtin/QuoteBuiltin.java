@@ -5,7 +5,6 @@ import java.util.List;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
-import com.github.fauu.flij.expression.QuotedExpression;
 
 public class QuoteBuiltin extends Builtin {
   
@@ -18,7 +17,7 @@ public class QuoteBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    return new QuotedExpression(arguments.get(0));
+    return arguments.get(0);
   }
 
 }

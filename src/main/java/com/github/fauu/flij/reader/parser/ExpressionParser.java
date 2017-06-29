@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.github.fauu.flij.expression.AtomExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
-import com.github.fauu.flij.expression.QuotedExpression;
+import com.github.fauu.flij.expression.SymbolExpression;
 import com.github.fauu.flij.reader.lexeme.Lexeme;
 import com.github.fauu.flij.reader.lexeme.TokenType;
 
@@ -42,7 +42,7 @@ public class ExpressionParser implements Parser<Expression> {
     Expression parsedExpression = delegate.parse(it, current);
       
     if (quoted) {
-      parsedExpression = new QuotedExpression(parsedExpression);
+      parsedExpression = new ListExpression(new SymbolExpression("quote"), parsedExpression);
     }
     
     return parsedExpression;

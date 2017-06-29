@@ -26,6 +26,8 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
 
     int i = 0;
     for (String symbol : fn.getArgumentSymbols()) {
+//      Expression argumentExpression = argumentExpressions.get(i++);
+//      Expression definition = (argumentExpression instanceof Quote)
       localEnvironment.setDefinition(symbol, expressionEvaluator.evaluate(argumentExpressions.get(i++), environment));
     }
 
@@ -35,6 +37,8 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
   @Override
   public Expression evaluate(ListExpression list, Environment environment) {
     Objects.requireNonNull(expressionEvaluator, "ListEvaluator depends on ExpressionEvaluator<Expression>");
+    
+    System.out.println("Evaluating " + list + " in " + environment.getDefinitions());
     
     if (list.getLength() == 0) {
       return list;

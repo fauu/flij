@@ -1,3 +1,5 @@
+(def nil '())
+
 (def inc (fn (n) (+ n 1)))
 
 (def dec (fn (n) (- n 1)))
@@ -9,3 +11,14 @@
 (def abs (fn (x) (if (>= x 0) x (- 0 x))))
 
 (def not (fn (x) (if x false true)))
+
+;;(def empty? (fn (l) (if (= null (head l) true false))))
+
+;; (def map (fn (sym args) (prepend (apply sym (head args)) (map sym (tail args)))))
+;;(defun map (fn lst)
+;;  (if (null lst)
+;;      '()
+;;      (cons (funcall fn (car lst))
+;;	    (map fn (cdr lst)))))
+
+;; (def map (fn (sym args) ()))	    

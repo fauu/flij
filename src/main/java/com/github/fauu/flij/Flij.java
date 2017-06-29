@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import com.github.fauu.flij.builtin.AddBuiltin;
 import com.github.fauu.flij.builtin.AndBuiltin;
+import com.github.fauu.flij.builtin.ApplyBuiltin;
 import com.github.fauu.flij.builtin.CompareBuiltin;
 import com.github.fauu.flij.builtin.CondBuiltin;
 import com.github.fauu.flij.builtin.DefineBuiltin;
@@ -81,6 +82,7 @@ public class Flij {
         new LambdaBuiltin("fn"),
         new QuoteBuiltin("quote"),
         new EvalBuiltin("eval"),
+        new ApplyBuiltin("apply"),
         new EqualsBuiltin("="),
         new CompareBuiltin("<", CompareBuiltin.Variant.LESS_THAN),
         new CompareBuiltin("<=", CompareBuiltin.Variant.LESS_THAN_OR_EQUAL_TO),
