@@ -6,6 +6,10 @@ public interface SequenceExpression<S extends Expression, T> {
   
   int getLength();
   
+  default boolean isEmpty() {
+    return getLength() == 0;
+  }
+  
   T getElement(int idx);
   
   List<T> getElements();

@@ -13,17 +13,20 @@ import com.github.fauu.flij.builtin.DefineBuiltin;
 import com.github.fauu.flij.builtin.DivideBuiltin;
 import com.github.fauu.flij.builtin.EqualsBuiltin;
 import com.github.fauu.flij.builtin.EvalBuiltin;
+import com.github.fauu.flij.builtin.HeadBuiltin;
 import com.github.fauu.flij.builtin.IfBuiltin;
 import com.github.fauu.flij.builtin.LambdaBuiltin;
 import com.github.fauu.flij.builtin.LengthBuiltin;
 import com.github.fauu.flij.builtin.MultiplyBuiltin;
 import com.github.fauu.flij.builtin.OrBuiltin;
+import com.github.fauu.flij.builtin.PrependBuiltin;
 import com.github.fauu.flij.builtin.PrintBuiltin;
 import com.github.fauu.flij.builtin.QuoteBuiltin;
 import com.github.fauu.flij.builtin.ReverseBuiltin;
 import com.github.fauu.flij.builtin.SqrtBuiltin;
 import com.github.fauu.flij.builtin.SubBuiltin;
 import com.github.fauu.flij.builtin.SubSequenceBuiltin;
+import com.github.fauu.flij.builtin.TailBuiltin;
 import com.github.fauu.flij.evaluator.AtomEvaluator;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.Evaluator;
@@ -92,6 +95,9 @@ public class Flij {
         new MultiplyBuiltin("*"),
         new DivideBuiltin("/"),
         new SqrtBuiltin("sqrt"),
+        new PrependBuiltin("prepend"),
+        new HeadBuiltin("head"),
+        new TailBuiltin("tail"),
         new LengthBuiltin("len"),
         new SubSequenceBuiltin("subseq"),
         new ReverseBuiltin("reverse")
