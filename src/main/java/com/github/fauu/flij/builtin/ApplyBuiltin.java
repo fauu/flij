@@ -6,6 +6,7 @@ import java.util.List;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
+import com.github.fauu.flij.expression.FunctionExpression;
 import com.github.fauu.flij.expression.ListExpression;
 import com.github.fauu.flij.expression.SymbolExpression;
 
@@ -20,17 +21,17 @@ public class ApplyBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    SymbolExpression symbol = ensureArgumentType(evaluator.evaluate(arguments.get(0), environment),
-        SymbolExpression.class);
+    Expression evaluatedFirstArg = evaluator.evaluate(arguments.get(0), environment);
+    Expression checkedFirstArg = ensureArgumentType(evaluatedFirstArg, SymbolExpression.class, FunctionExpression.class);
 
     List<Expression> newElements = new LinkedList<>();
-    newElements.add(symbol);
+    newElements.add(checkedFirstArg);
 
-    Expression evaluatedArgsArgument = evaluator.evaluate(arguments.get(1), environment);
-    if (evaluatedArgsArgument instanceof ListExpression) {
-      newElements.addAll(ensureArgumentType(evaluatedArgsArgument, ListExpression.class).getElements());
+    Expression evaluatedArgsArg = evaluator.evaluate(arguments.get(1), environment);
+    if (evaluatedArgsArg instanceof ListExpression) {
+      newElements.addAll(ensureArgumentType(evaluatedArgsArg, ListExpression.class).getElements());
     } else {
-      newElements.add(evaluatedArgsArgument);
+      newElements.add(evaluatedArgsArg);
     }
 
     return evaluator.evaluate(new ListExpression(newElements), environment);

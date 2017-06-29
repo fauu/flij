@@ -39,6 +39,22 @@ public abstract class Builtin implements Evaluable {
     
     return (T) argument;
   }
+  
+  @SafeVarargs
+  protected final Expression ensureArgumentType(Expression argument, Class<? extends Expression>... clazzes) {
+    boolean match = false;
+    for (Class<?> clazz : clazzes) {
+      if (clazz.isInstance(argument)) {
+        match = true;
+      }
+    }
+    
+    if (!match) {
+      throw new WrongArgumentTypeException(symbol);
+    }
+    
+    return argument;
+  }
 
   protected final void validateArgumentCount(List<?> arguments) {
     if (!argumentCountValidator.apply(arguments.size())) {
