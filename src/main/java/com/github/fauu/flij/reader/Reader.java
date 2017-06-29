@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
+import java.util.Scanner;
 
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.reader.lexeme.Lexeme;
@@ -29,10 +30,37 @@ public class Reader {
     expressionParser.setAtomParser(atomParser);
   }
 
-  public Expression read(String input) {
-    Objects.requireNonNull(input, "No input provided for the reader");
+  public Expression read(String firstLine, Scanner scanner) {
+    Objects.requireNonNull(firstLine, "No input provided for the reader");
+    
+    return parse(lex(completeInput(firstLine, scanner)));
+  }
+  
+  private String completeInput(String firstLine, Scanner scanner) {
+    String completedInput = "";
 
-    return parse(lex(input));
+    int listStartBias = 0;
+    do {
+      String input = listStartBias == 0 ? firstLine : scanner.nextLine();
+
+      for (int i = 0; i < input.length(); i++) {
+        char c = input.charAt(i);
+        
+        if (c == TokenType.LIST_START.getCharacterValue()) {
+          listStartBias++;
+        } else if (c == TokenType.LIST_END.getCharacterValue()) {
+          listStartBias--;
+        }
+      }
+
+      completedInput += input.trim() + ' ';
+    } while (listStartBias > 0);
+    
+    if (listStartBias < 0) {
+      throw new ExpressionReadException("Unmatched list end delimiter");
+    }
+    
+    return completedInput;
   }
 
   private Expression parse(List<Lexeme> lexemes) {

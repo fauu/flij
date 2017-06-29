@@ -57,7 +57,7 @@ public class Repl {
       }
 
       try {
-        printer.print(evaluator.evaluate(reader.read(input), environment));
+        printer.print(evaluator.evaluate(reader.read(input, scanner), environment));
       } catch (ExpressionReadException|ExpressionEvaluationException e) {
         System.out.println(e.getMessage());
       }

@@ -1,9 +1,8 @@
 package com.github.fauu.flij;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Scanner;
 
 import com.github.fauu.flij.builtin.Builtin;
 import com.github.fauu.flij.builtin.SymbolMapping;
@@ -12,7 +11,6 @@ import com.github.fauu.flij.builtin.RegisteredVariantBuiltin;
 import com.github.fauu.flij.evaluator.AtomEvaluator;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.Evaluator;
-import com.github.fauu.flij.evaluator.ExpressionEvaluationException;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.evaluator.ListEvaluator;
 import com.github.fauu.flij.expression.Expression;
@@ -23,8 +21,8 @@ import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
 public class Flij {
 
-  private final static String STANDARD_LIBRARY_PATH = "std.flj";
-  private final static String BUILTINS_PACKAGE = "com.github.fauu.flij.builtin";
+  private static final String STANDARD_LIBRARY_PATH = "/lib/std.flj";
+  private static final String BUILTINS_PACKAGE_NAME = "com.github.fauu.flij.builtin";
 
   public void run() {
     Reader reader = new Reader();
@@ -60,14 +58,12 @@ public class Flij {
   }
 
   private void initBuiltins(Environment environment) {
-    new FastClasspathScanner(BUILTINS_PACKAGE)
-        .scan()
-        .getNamesOfClassesWithAnnotationsAnyOf(RegisteredBuiltin.class, RegisteredVariantBuiltin.class)
-        .stream()
+    new FastClasspathScanner(BUILTINS_PACKAGE_NAME).scan()
+        .getNamesOfClassesWithAnnotationsAnyOf(RegisteredBuiltin.class, RegisteredVariantBuiltin.class).stream()
         .forEach(classname -> {
           try {
             Class<?> clazz = Class.forName(classname);
-            
+
             RegisteredBuiltin nonvariantAnnotation = clazz.getAnnotation(RegisteredBuiltin.class);
             if (nonvariantAnnotation != null) {
               String symbol = nonvariantAnnotation.value();
@@ -95,23 +91,11 @@ public class Flij {
   }
 
   private void loadStandardLibrary(Reader reader, ExpressionEvaluator<Expression> evaluator, Environment environment) {
-    try {
-      String fullPath = getClass().getClassLoader().getResource(STANDARD_LIBRARY_PATH).toString();
+    InputStream fileStream = Flij.class.getResourceAsStream(STANDARD_LIBRARY_PATH);
 
-      // XXX: Hack to support loading when launching from both Equinox Launcher and
-      // JAR
-      String[] fragments = fullPath.toString().split("!"); // <jar path>!<path inside jar>
-      String path = fragments.length > 1 ? // Are we running from JAR?
-          "src/main/resources/lib" + fragments[1] : // <path inside jar>
-          fragments[0].substring(5, fragments[0].length()); // Strip "file:"
-
-      Files.lines(Paths.get(path)).map(l -> l.trim()).filter(l -> !l.isEmpty())
-          .forEach(l -> evaluator.evaluate(reader.read(l), environment));
-    } catch (ExpressionEvaluationException e) {
-      System.out.println("Encountered error while evaluating stdlib:");
-      System.out.println(e.getMessage());
-    } catch (IOException e) {
-      System.out.println("Could not load standard library file");
+    Scanner scanner = new Scanner(fileStream);
+    while (scanner.hasNextLine()) {
+      evaluator.evaluate(reader.read(scanner.nextLine(), scanner), environment);
     }
   }
 
