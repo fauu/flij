@@ -10,7 +10,7 @@ import com.github.fauu.flij.expression.Expression;
 public class IfBuiltin extends Builtin {
 
   public IfBuiltin(String symbol) {
-    super(symbol, (n) -> n == 3);
+    super(symbol, (n) -> n == 2 || n == 3);
   }
 
   @Override
@@ -21,9 +21,10 @@ public class IfBuiltin extends Builtin {
     boolean evaluatedCondition = 
         BooleanExpression.fromExpression(evaluator.evaluate(arguments.get(0), environment)).getValue();
 
-    int resultIdx = evaluatedCondition ? 1 : 2;
+    int resultIdx = evaluatedCondition ? 1 : ((arguments.size() == 3) ? 2 : -1);
+    Expression result = resultIdx > 0 ? arguments.get(resultIdx) : Expression.NIL;
 
-    return evaluator.evaluate(arguments.get(resultIdx), environment);
+    return evaluator.evaluate(result, environment);
   }
 
 }
