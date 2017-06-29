@@ -10,6 +10,7 @@ import com.github.fauu.flij.expression.FunctionExpression;
 import com.github.fauu.flij.expression.ListExpression;
 import com.github.fauu.flij.expression.SymbolExpression;
 
+@RegisteredBuiltin("apply")
 public class ApplyBuiltin extends Builtin {
 
   public ApplyBuiltin(String symbol) {

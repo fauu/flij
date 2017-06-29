@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
 
+@RegisteredBuiltin("head")
 public class HeadBuiltin extends Builtin {
 
   public HeadBuiltin(String symbol) {

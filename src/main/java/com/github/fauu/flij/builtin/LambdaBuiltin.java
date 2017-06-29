@@ -11,6 +11,7 @@ import com.github.fauu.flij.expression.FunctionExpression;
 import com.github.fauu.flij.expression.ListExpression;
 import com.github.fauu.flij.expression.SymbolExpression;
 
+@RegisteredBuiltin("fn")
 public class LambdaBuiltin extends Builtin {
 
   public LambdaBuiltin(String symbol) {

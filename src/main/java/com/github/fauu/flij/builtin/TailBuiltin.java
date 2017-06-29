@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
 
+@RegisteredBuiltin("tail")
 public class TailBuiltin extends Builtin {
 
   public TailBuiltin(String symbol) {

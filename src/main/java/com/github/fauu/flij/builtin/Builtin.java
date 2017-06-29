@@ -13,23 +13,25 @@ import com.github.fauu.flij.expression.Expression;
 public abstract class Builtin implements Evaluable {
 
   protected final String symbol;
+  protected final String variant;
   protected final Function<Integer, Boolean> argumentCountValidator;
-
+  
   protected Builtin(String symbol) {
-    this(symbol, null);
+    this(symbol, null, null);
   }
 
   protected Builtin(String symbol, Function<Integer, Boolean> argumentCountValidator) {
+    this(symbol, null, argumentCountValidator);
+  }
+
+  protected Builtin(String symbol, String variant, Function<Integer, Boolean> argumentCountValidator) {
     this.symbol = symbol;
+    this.variant = variant;
     this.argumentCountValidator = argumentCountValidator;
   }
 
   public abstract Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment);
-
-  public final String getSymbol() {
-    return symbol;
-  }
   
   @SuppressWarnings("unchecked")
   protected final <T> T ensureArgumentType(Expression argument, Class<T> clazz) {

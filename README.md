@@ -22,6 +22,7 @@ Run ``build-and-run-repl.sh`` to do just that.
 * and, or
 * \+, \-, \*, \/
 * sqrt
+* prepend, head, tail
 * len
 * subseq
 * reverse

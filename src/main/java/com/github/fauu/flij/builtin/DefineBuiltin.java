@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.SymbolExpression;
 
+@RegisteredBuiltin("def")
 public class DefineBuiltin extends Builtin {
   
   public DefineBuiltin(String symbol) {

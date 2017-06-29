@@ -8,19 +8,14 @@ import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 
+@RegisteredVariantBuiltin({
+  @SymbolMapping(symbol="put", variant="NO_NEWLINE"),
+  @SymbolMapping(symbol="putln", variant="NEWLINE")
+})
 public class PrintBuiltin extends Builtin {
   
-  public enum Variant {
-    NEWLINE,
-    NO_NEWLINE;
-  }
-  
-  private Variant variant;
-  
-  public PrintBuiltin(Variant variant, String symbol) {
-    super(symbol, n -> n >= 1);
-    
-    this.variant = variant;
+  public PrintBuiltin(String symbol, String variant) {
+    super(symbol, variant, n -> n >= 1);
   }
 
   @Override
@@ -34,7 +29,7 @@ public class PrintBuiltin extends Builtin {
     
     System.out.print(output);
     
-    if (variant == Variant.NEWLINE) {
+    if (variant.equals("NEWLINE")) {
       System.out.print(System.lineSeparator());
     }
 

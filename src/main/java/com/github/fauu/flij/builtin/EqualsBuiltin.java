@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
 
+@RegisteredBuiltin("=")
 public class EqualsBuiltin extends Builtin {
 
   public EqualsBuiltin(String symbol) {

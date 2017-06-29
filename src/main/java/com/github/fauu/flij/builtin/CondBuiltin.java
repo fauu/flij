@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
 
+@RegisteredBuiltin("cond")
 public class CondBuiltin extends Builtin {
 
   public CondBuiltin(String symbol) {

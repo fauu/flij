@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.SequenceExpression;
 
+@RegisteredBuiltin("reverse")
 public class ReverseBuiltin extends Builtin {
 
   public ReverseBuiltin(String symbol) {

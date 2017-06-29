@@ -8,6 +8,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
 
+@RegisteredBuiltin("prepend")
 public class PrependBuiltin extends Builtin {
 
   public PrependBuiltin(String symbol) {

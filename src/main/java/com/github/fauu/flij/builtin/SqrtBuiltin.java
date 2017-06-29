@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.NumberExpression;
 
+@RegisteredBuiltin("sqrt")
 public class SqrtBuiltin extends Builtin {
 
   public SqrtBuiltin(String symbol) {

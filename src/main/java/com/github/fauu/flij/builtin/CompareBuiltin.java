@@ -10,21 +10,16 @@ import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.NumberExpression;
 
+@RegisteredVariantBuiltin({
+  @SymbolMapping(symbol="<", variant="LESS_THAN"),
+  @SymbolMapping(symbol="<=", variant="LESS_THAN_OR_EQUAL_TO"),
+  @SymbolMapping(symbol=">", variant="MORE_THAN"),
+  @SymbolMapping(symbol=">=", variant="MORE_THAN_OR_EQUAL_TO"),
+})
 public class CompareBuiltin extends Builtin {
 
-  public enum Variant {
-    LESS_THAN,
-    LESS_THAN_OR_EQUAL_TO,
-    MORE_THAN,
-    MORE_THAN_OR_EQUAL_TO;
-  }
-
-  private Variant variant;
-
-  public CompareBuiltin(String symbol, Variant variant) {
-    super(symbol, n -> n >= 1);
-
-    this.variant = variant;
+  public CompareBuiltin(String symbol, String variant) {
+    super(symbol, variant, n -> n >= 1);
   }
 
   @Override
@@ -43,16 +38,16 @@ public class CompareBuiltin extends Builtin {
       
       boolean partialResult;
       switch (variant) {
-        case LESS_THAN:
+        case "LESS_THAN":
           partialResult = a < b;
           break;
-        case LESS_THAN_OR_EQUAL_TO:
+        case "LESS_THAN_OR_EQUAL_TO":
           partialResult = a <= b;
           break;
-        case MORE_THAN:
+        case "MORE_THAN":
           partialResult = a > b;
           break;
-        case MORE_THAN_OR_EQUAL_TO:
+        case "MORE_THAN_OR_EQUAL_TO":
           partialResult = a >= b;
           break;
         default:

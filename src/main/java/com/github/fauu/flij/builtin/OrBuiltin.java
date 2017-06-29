@@ -7,6 +7,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
 
+@RegisteredBuiltin("or")
 public class OrBuiltin extends Builtin {
 
   public OrBuiltin(String symbol) {

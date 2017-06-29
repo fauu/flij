@@ -6,6 +6,7 @@ import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 
+@RegisteredBuiltin("quote")
 public class QuoteBuiltin extends Builtin {
   
   public QuoteBuiltin(String symbol) {

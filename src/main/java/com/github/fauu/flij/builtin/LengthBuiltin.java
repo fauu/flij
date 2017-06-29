@@ -8,6 +8,7 @@ import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.NumberExpression;
 import com.github.fauu.flij.expression.SequenceExpression;
 
+@RegisteredBuiltin("len")
 public class LengthBuiltin extends Builtin {
 
   public LengthBuiltin(String symbol) {

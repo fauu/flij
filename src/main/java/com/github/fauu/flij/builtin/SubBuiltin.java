@@ -8,6 +8,7 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.NumberExpression;
 
+@RegisteredBuiltin("-")
 public class SubBuiltin extends Builtin {
 
   public SubBuiltin(String symbol) {
