@@ -38,7 +38,7 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
   public Expression evaluate(ListExpression list, Environment environment) {
     Objects.requireNonNull(expressionEvaluator, "ListEvaluator depends on ExpressionEvaluator<Expression>");
     
-    System.out.println("Evaluating " + list + " in " + environment.getDefinitions());
+//    System.out.println("Evaluating " + list + ", where " + environment.getDefinitions());
     
     if (list.getLength() == 0) {
       return list;

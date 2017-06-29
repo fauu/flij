@@ -21,7 +21,7 @@ public class AtomEvaluator implements ExpressionEvaluator<AtomExpression<?>> {
       if (maybeEvaluable.isPresent()) {
         Evaluable evaluable = maybeEvaluable.get();
         if (evaluable instanceof Expression) {
-          return expressionEvaluator.evaluate((Expression) evaluable, environment);
+          return (Expression) evaluable;
         }
       }
     }

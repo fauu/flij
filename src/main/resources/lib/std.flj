@@ -12,13 +12,6 @@
 
 (def not (fn (x) (if x false true)))
 
-;;(def empty? (fn (l) (if (= null (head l) true false))))
+(def empty? (fn (l) (= nil l)))
 
-;; (def map (fn (sym args) (prepend (apply sym (head args)) (map sym (tail args)))))
-;;(defun map (fn lst)
-;;  (if (null lst)
-;;      '()
-;;      (cons (funcall fn (car lst))
-;;	    (map fn (cdr lst)))))
-
-;; (def map (fn (sym args) ()))	    
+(def map (fn (sym args) (if (= nil args) '() (prepend (apply sym (head args)) (map sym (tail args))))))	    

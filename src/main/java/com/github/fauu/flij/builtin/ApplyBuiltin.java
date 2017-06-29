@@ -20,7 +20,8 @@ public class ApplyBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    SymbolExpression symbol = ensureArgumentType(arguments.get(0), SymbolExpression.class);
+    SymbolExpression symbol = ensureArgumentType(evaluator.evaluate(arguments.get(0), environment),
+        SymbolExpression.class);
 
     List<Expression> newElements = new LinkedList<>();
     newElements.add(symbol);
@@ -31,7 +32,7 @@ public class ApplyBuiltin extends Builtin {
     } else {
       newElements.add(evaluatedArgsArgument);
     }
-    
+
     return evaluator.evaluate(new ListExpression(newElements), environment);
   }
 
