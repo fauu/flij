@@ -17,6 +17,9 @@ public class EqualsBuiltin extends Builtin {
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
     long distinctCount = arguments.stream().map(arg -> evaluator.evaluate(arg, environment)).distinct().count();
+    
+    System.out.println(environment.getDefinitions());
+    System.out.println("= " + arguments + ": " + (distinctCount == 1));
 
     return new BooleanExpression(distinctCount == 1);
   }

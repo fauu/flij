@@ -2,12 +2,10 @@
 
 (def dec (fn (n) (- n 1)))
 
-(def fact (fn (n) (if (= n 0) 1 (* n (fact (dec 1))))))
+(def fact (fn (n) (if (= n 0) 1 (* n (fact (dec 1)))))) ;; FIXME: broken!
 
 (def sqr (fn (n) (* n n)))
 
-(def abs (fn (x) (if (>= 0 x) x (- 0 x))))
+(def abs (fn (x) (if (>= x 0) x (- 0 x))))
 
-(def not (fn (x) (cond x true else false)))
-
-;; FIXME: broken!
+(def not (fn (x) (if x false true)))

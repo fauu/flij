@@ -33,7 +33,8 @@ public class CompareBuiltin extends Builtin {
     validateArgumentCount(arguments);
 
     List<Float> numberArguments = arguments.stream()
-        .map(arg -> ensureArgumentType(arg, NumberExpression.class).getValue()).collect(toList());
+        .map(arg -> ensureArgumentType(evaluator.evaluate(arg, environment), NumberExpression.class).getValue())
+        .collect(toList());
 
     boolean result = true;
     for (int i = 0; i < numberArguments.size() - 1; i++) {
