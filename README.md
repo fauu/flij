@@ -15,6 +15,7 @@ Run ``build-and-run-repl.sh`` to do just that.
 * fn
 * quote
 * eval
+* apply
 * =
 * <, <=, >, >=
 * cond, if
@@ -27,8 +28,11 @@ Run ``build-and-run-repl.sh`` to do just that.
 
 ### [Standard library](src/main/resources/lib/std.flj)
 
+* nil
 * inc
 * dec
 * sqr
 * fact
 * not
+* empty?
+* map

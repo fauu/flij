@@ -14,4 +14,4 @@
 
 (def empty? (fn (l) (= nil l)))
 
-(def map (fn (sym args) (if (= nil args) '() (prepend (apply sym (head args)) (map sym (tail args))))))	    
+(def map (fn (sym lst) (if (empty? lst) '() (prepend (apply sym (head lst)) (map sym (tail lst))))))	    
