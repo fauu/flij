@@ -6,7 +6,8 @@ import static java.util.stream.Collectors.toList;
 
 import com.github.fauu.flij.reader.lexeme.Lexeme;
 
-public class StringExpression extends AtomExpression<String> implements SequenceExpression<StringExpression, Character> {
+public class StringExpression extends AtomExpression<String>
+    implements SequenceExpression<StringExpression, Character> {
 
   public StringExpression(String value) {
     super(value);
@@ -42,7 +43,7 @@ public class StringExpression extends AtomExpression<String> implements Sequence
   public StringExpression reversed() {
     return new StringExpression(new StringBuilder(value).reverse().toString());
   }
-  
+
   @Override
   public String toPrinterString() {
     return "\"" + value + "\"";
