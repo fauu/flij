@@ -5,7 +5,7 @@ import java.util.List;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.Expression;
-import com.github.fauu.flij.expression.ListExpression;
+import com.github.fauu.flij.expression.SequenceExpression;
 
 @RegisteredBuiltin("tail")
 public class TailBuiltin extends Builtin {
@@ -20,13 +20,13 @@ public class TailBuiltin extends Builtin {
     validateArgumentCount(arguments);
 
     Expression evaluatedArg = evaluator.evaluate(arguments.get(0), environment);
-    ListExpression list = ensureArgumentType(evaluatedArg, ListExpression.class);
+    SequenceExpression<?, ?> seq = ensureArgumentType(evaluatedArg, SequenceExpression.class);
     
-    if (list.getLength() < 1) {
+    if (seq.getLength() < 1) {
       return Expression.NIL;
     }
 
-    return new ListExpression(list.getElements().subList(1, list.getLength()));
+    return seq.subSequence(1, seq.getLength());
   }
 
 }
