@@ -37,3 +37,4 @@ Run ``build-and-run-repl.sh`` to do just that.
 * not
 * empty?
 * map
+* join-reversed, join

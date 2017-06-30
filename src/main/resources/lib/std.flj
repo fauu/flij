@@ -28,8 +28,8 @@
     (if x false true)))
 
 (def empty?
-  (fn (l)
-    (= nil l)))
+  (fn (seq)
+    (= nil seq)))
 
 (def map 
   (fn (sym lst) 
@@ -38,3 +38,15 @@
 	  (prepend 
 	    (apply sym (head lst))
 	    (map sym (tail lst))))))	    
+	    
+(def join-reversed 
+  (fn (a b)
+    (if (empty? a)
+      b 
+      (join-reversed
+        (tail a) 
+        (prepend (head a) b)))))
+
+(def join
+  (fn (a b)
+    (join-reversed (reverse a) b)))
