@@ -45,8 +45,10 @@ a ;; => a
 
 ;; Lists
 ;; Every expression is evaluated by default.
-;; With a list, the first element is treated as a symbol for built-in or a function, and the rest of the elements as its parameters:
+;; With a list, the first element is treated as a symbol for built-in or a function.
+;; The rest of the elements is treated as parameters to that function:
 (1 2 3) ;; => EVAL ERROR: Exprected symbol at list start
+(+ 1 2 3) ;; => 6.0
 
 ;; Built-ins are special forms implemented inside the interpreter.
 ;; To stop default list evaluation, 'quote' built-in can be used:
