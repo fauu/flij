@@ -19,7 +19,8 @@ public class ReverseBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
     
-    SequenceExpression<?, ?> seq = ensureArgumentType(arguments.get(0), SequenceExpression.class);
+    Expression evaluatedArg = evaluator.evaluate(arguments.get(0), environment);
+    SequenceExpression<?, ?> seq = ensureArgumentType(evaluatedArg, SequenceExpression.class);
 
     return seq.reversed();
   }
