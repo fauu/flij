@@ -15,7 +15,6 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.evaluator.ListEvaluator;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.reader.Reader;
-import com.github.fauu.flij.repl.Repl;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 

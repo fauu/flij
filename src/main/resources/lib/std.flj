@@ -33,12 +33,12 @@
 
 (def map 
   (fn (sym lst) 
-	(if (empty? lst) 
-	  '() 
-	  (prepend 
-	    (apply sym (head lst))
-	    (map sym (tail lst))))))	    
-	    
+    (if (empty? lst) 
+      '() 
+      (prepend 
+        (apply sym (head lst))
+        (map sym (tail lst))))))
+      
 (def join-reversed 
   (fn (a b)
     (if (empty? a)
