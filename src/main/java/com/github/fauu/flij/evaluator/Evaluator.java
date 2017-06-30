@@ -5,7 +5,6 @@ import java.util.Objects;
 import com.github.fauu.flij.expression.AtomExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
-import com.github.fauu.flij.expression.QuotedExpression;
 
 public class Evaluator implements ExpressionEvaluator<Expression> {
   
