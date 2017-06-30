@@ -17,7 +17,7 @@ public enum TokenType {
   COMMENT_START(Pattern.compile("^;;.*$")),
   NUMBER(Pattern.compile("^(\\+|-)?(\\d)+(\\.(\\d)+)?$")),
   BOOLEAN(Pattern.compile("^(true|false)$")),
-  STRING(Pattern.compile("^\".*\"$")),
+  STRING(Pattern.compile("^\"[^\"]*\"$")),
   SYMBOL(Pattern.compile("^[a-z+-=><\\$\\*/\\?]+$"));
 
   private char character;
