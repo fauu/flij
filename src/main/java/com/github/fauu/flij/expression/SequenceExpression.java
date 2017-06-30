@@ -2,7 +2,7 @@ package com.github.fauu.flij.expression;
 
 import java.util.List;
 
-public interface SequenceExpression<S extends Expression, T> {
+public interface SequenceExpression<S extends Expression, T extends Expression> {
   
   int getLength();
   

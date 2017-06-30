@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.toList;
 import com.github.fauu.flij.reader.lexeme.Lexeme;
 
 public class StringExpression extends AtomExpression<String>
-    implements SequenceExpression<StringExpression, Character> {
+    implements SequenceExpression<StringExpression, CharacterExpression> {
 
   public StringExpression(String value) {
     super(value);
@@ -25,13 +25,13 @@ public class StringExpression extends AtomExpression<String>
   }
 
   @Override
-  public Character getElement(int idx) {
-    return value.charAt(idx);
+  public CharacterExpression getElement(int idx) {
+    return new CharacterExpression(value.charAt(idx));
   }
 
   @Override
-  public List<Character> getElements() {
-    return value.chars().mapToObj(c -> (char) c).collect(toList());
+  public List<CharacterExpression> getElements() {
+    return value.chars().mapToObj(c -> new CharacterExpression((char) c)).collect(toList());
   }
 
   @Override

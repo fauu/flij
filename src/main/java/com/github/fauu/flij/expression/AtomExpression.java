@@ -29,6 +29,8 @@ public abstract class AtomExpression<T> extends Expression {
         return new NumberExpression(lexeme);
       case BOOLEAN:
         return new BooleanExpression(lexeme);
+      case CHARACTER:
+        return new CharacterExpression(lexeme);
       case STRING:
         return new StringExpression(lexeme);
       case SYMBOL:

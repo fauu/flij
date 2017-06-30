@@ -61,7 +61,7 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
 
     builder.append('(');
     IntStream.range(0, children.size()).forEach(idx -> {
-      builder.append(children.get(idx));
+      builder.append(children.get(idx).toPrinterString());
 
       if (idx < children.size() - 1) {
         builder.append(' ');
