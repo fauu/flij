@@ -17,8 +17,7 @@ public class SqrtBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    Expression evaluatedArg = evaluator.evaluate(arguments.get(0), environment);
-    float evaluatedArgValue = ensureArgumentType(evaluatedArg, NumberExpression.class).getValue();
+    float evaluatedArgValue = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
 
     return new NumberExpression((float) Math.sqrt((double) evaluatedArgValue));
   }

@@ -23,9 +23,7 @@ public class PrintBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    String output = arguments.stream().map(arg ->
-      evaluator.evaluate(arg, environment).toString()
-    ).collect(joining(" "));
+    String output = arguments.stream().map(Object::toString).collect(joining(" "));
     
     System.out.print(output);
     

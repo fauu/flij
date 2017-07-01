@@ -7,6 +7,7 @@ import static java.util.stream.Collectors.toList;
 
 import com.github.fauu.flij.Evaluable;
 import com.github.fauu.flij.builtin.Builtin;
+import com.github.fauu.flij.builtin.Shortcircuiting;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.FunctionExpression;
 import com.github.fauu.flij.expression.ListExpression;
@@ -31,12 +32,19 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
 
     return expressionEvaluator.evaluate(fn.getBody(), localEnvironment);
   }
+  
+  private Expression evaluateBuiltin(Builtin builtin, List<Expression> argumentExpressions, Environment environment) {
+    boolean shortcircuiting = builtin.getClass().getAnnotation(Shortcircuiting.class) != null;
+    List<Expression> processedArgumentExpressions = shortcircuiting ?
+        argumentExpressions
+        : argumentExpressions.stream().map(arg -> expressionEvaluator.evaluate(arg, environment)).collect(toList());
+
+    return builtin.evaluate(processedArgumentExpressions, expressionEvaluator, environment);
+  }
 
   @Override
   public Expression evaluate(ListExpression list, Environment environment) {
     Objects.requireNonNull(expressionEvaluator, "ListEvaluator depends on ExpressionEvaluator<Expression>");
-    
-//    System.out.println("Evaluating " + list + ", where " + environment.getDefinitions());
     
     if (list.getLength() == 0) {
       return list;
@@ -61,7 +69,7 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
     if (evaluable instanceof FunctionExpression) {
       return evaluateFunction((FunctionExpression) evaluable, arguments, environment);
     } else if (evaluable instanceof Builtin) {
-      return ((Builtin) evaluable).evaluate(arguments, expressionEvaluator, environment);
+      return evaluateBuiltin((Builtin) evaluable, arguments, environment);
     } else if (evaluable instanceof Expression) {
       return expressionEvaluator.evaluate((Expression) evaluable, environment);
     }

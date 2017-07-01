@@ -22,17 +22,16 @@ public class ApplyBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    Expression evaluatedFirstArg = evaluator.evaluate(arguments.get(0), environment);
-    Expression checkedFirstArg = ensureArgumentType(evaluatedFirstArg, SymbolExpression.class, FunctionExpression.class);
+    Expression firstArg = ensureArgumentType(arguments.get(0), SymbolExpression.class, FunctionExpression.class);
 
     List<Expression> newElements = new LinkedList<>();
-    newElements.add(checkedFirstArg);
+    newElements.add(firstArg);
 
-    Expression evaluatedArgsArg = evaluator.evaluate(arguments.get(1), environment);
-    if (evaluatedArgsArg instanceof ListExpression) {
-      newElements.addAll(ensureArgumentType(evaluatedArgsArg, ListExpression.class).getElements());
+    Expression argsArg = arguments.get(1);
+    if (argsArg instanceof ListExpression) {
+      newElements.addAll(ensureArgumentType(argsArg, ListExpression.class).getElements());
     } else {
-      newElements.add(evaluatedArgsArg);
+      newElements.add(argsArg);
     }
 
     return evaluator.evaluate(new ListExpression(newElements), environment);

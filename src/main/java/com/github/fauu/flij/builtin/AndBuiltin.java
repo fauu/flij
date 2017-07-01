@@ -7,6 +7,8 @@ import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
 
+@RegisteredBuiltin("and")
+@Shortcircuiting
 public class AndBuiltin extends Builtin {
 
   public AndBuiltin(String symbol) {

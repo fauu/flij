@@ -19,13 +19,10 @@ public class DivideBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    Expression maybeNumber = evaluator.evaluate(arguments.get(0), environment);
-    float number = ensureArgumentType(maybeNumber, NumberExpression.class).getValue();
+    float number = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
     if (arguments.size() > 1) {
       float result = arguments.stream().skip(1).map(divisorExpr -> {
-        Expression evaluatedDivisorExpr = evaluator.evaluate(divisorExpr, environment);
-
-        return ensureArgumentType(evaluatedDivisorExpr, NumberExpression.class).getValue();
+        return ensureArgumentType(divisorExpr, NumberExpression.class).getValue();
       }).reduce(number, (a, b) -> a / b);
 
       return new NumberExpression(result);

@@ -8,6 +8,7 @@ import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
 
 @RegisteredBuiltin("cond")
+@Shortcircuiting
 public class CondBuiltin extends Builtin {
 
   public CondBuiltin(String symbol) {

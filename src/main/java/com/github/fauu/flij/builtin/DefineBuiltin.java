@@ -20,8 +20,7 @@ public class DefineBuiltin extends Builtin {
     validateArgumentCount(arguments);
 
     String symbol = ensureArgumentType(arguments.get(0), SymbolExpression.class).getValue();
-    Expression definition = evaluator.evaluate(arguments.get(1), environment);
-    environment.setDefinition(symbol, definition);
+    environment.setDefinition(symbol, arguments.get(1));
 
     return Expression.NIL;
   }

@@ -22,15 +22,16 @@ public class PrependBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    Expression element = evaluator.evaluate(arguments.get(0), environment);
-    Expression evaluatedListArgument = evaluator.evaluate(arguments.get(1), environment);
+    Expression element = arguments.get(0);
+    Expression listArgument = arguments.get(1);
 
-    if (evaluatedListArgument instanceof StringExpression) {
+    if (listArgument instanceof StringExpression) {
       CharacterExpression character = ensureArgumentType(element, CharacterExpression.class);
-      return new StringExpression(character.getValue() + ((StringExpression) evaluatedListArgument).getValue());
+
+      return new StringExpression(character.getValue() + ((StringExpression) listArgument).getValue());
     }
     
-    ListExpression list = ensureArgumentType(evaluatedListArgument, ListExpression.class);
+    ListExpression list = ensureArgumentType(listArgument, ListExpression.class);
     
     List<Expression> newElements = new LinkedList<Expression>();
     newElements.add(element);

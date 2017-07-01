@@ -19,8 +19,7 @@ public class TailBuiltin extends Builtin {
       Environment environment) {
     validateArgumentCount(arguments);
 
-    Expression evaluatedArg = evaluator.evaluate(arguments.get(0), environment);
-    SequenceExpression<?, ?> seq = ensureArgumentType(evaluatedArg, SequenceExpression.class);
+    SequenceExpression<?, ?> seq = ensureArgumentType(arguments.get(0), SequenceExpression.class);
     
     if (seq.getLength() < 1) {
       return Expression.NIL;

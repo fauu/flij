@@ -18,7 +18,7 @@ public class AddBuiltin extends Builtin {
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
     float sum = arguments.stream()
-        .map(arg -> ensureArgumentType(evaluator.evaluate(arg, environment), NumberExpression.class).getValue())
+        .map(arg -> ensureArgumentType(arg, NumberExpression.class).getValue())
         .reduce(0.0f, Float::sum);
 
     return new NumberExpression(sum);

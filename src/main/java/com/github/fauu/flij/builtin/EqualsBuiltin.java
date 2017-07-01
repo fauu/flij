@@ -9,6 +9,7 @@ import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.SequenceExpression;
 
 @RegisteredBuiltin("=")
+@Shortcircuiting
 public class EqualsBuiltin extends Builtin {
 
   public EqualsBuiltin(String symbol) {
