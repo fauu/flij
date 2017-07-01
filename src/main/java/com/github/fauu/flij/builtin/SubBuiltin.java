@@ -23,6 +23,10 @@ public class SubBuiltin extends Builtin {
 
       return i == 0 ? value : -value;
     }).reduce(0.0, Double::sum);
+    
+    if (arguments.size() == 1) {
+      result *= -1;
+    }
 
     return new NumberExpression(result);
   }
