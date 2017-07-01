@@ -33,13 +33,17 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
     return expressionEvaluator.evaluate(fn.getBody(), localEnvironment);
   }
   
-  private Expression evaluateBuiltin(Builtin builtin, List<Expression> argumentExpressions, Environment environment) {
-    boolean shortcircuiting = builtin.getClass().getAnnotation(Shortcircuiting.class) != null;
-    List<Expression> processedArgumentExpressions = shortcircuiting ?
-        argumentExpressions
-        : argumentExpressions.stream().map(arg -> expressionEvaluator.evaluate(arg, environment)).collect(toList());
+  private Expression evaluateBuiltin(Builtin builtin, List<Expression> arguments, Environment environment) {
+    if (!builtin.isArgumentCountValid(arguments.size())) {
+      throw new WrongArgumentCountException(builtin.getSymbol());
+    }
 
-    return builtin.evaluate(processedArgumentExpressions, expressionEvaluator, environment);
+    boolean shortcircuiting = builtin.getClass().getAnnotation(Shortcircuiting.class) != null;
+    List<Expression> processedArguments = shortcircuiting ?
+        arguments
+        : arguments.stream().map(arg -> expressionEvaluator.evaluate(arg, environment)).collect(toList());
+
+    return builtin.evaluate(processedArguments, expressionEvaluator, environment);
   }
 
   @Override

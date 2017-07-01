@@ -11,14 +11,17 @@ import com.github.fauu.flij.expression.NumberExpression;
 public class DivideBuiltin extends Builtin {
 
   public DivideBuiltin(String symbol) {
-    super(symbol, n -> n >= 1);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n >= 1;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     float number = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
     if (arguments.size() > 1) {
       float result = arguments.stream().skip(1).map(divisorExpr -> {

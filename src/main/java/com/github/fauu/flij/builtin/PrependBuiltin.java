@@ -14,14 +14,17 @@ import com.github.fauu.flij.expression.StringExpression;
 public class PrependBuiltin extends Builtin {
 
   public PrependBuiltin(String symbol) {
-    super(symbol, n -> n == 2);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 2;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     Expression element = arguments.get(0);
     Expression listArgument = arguments.get(1);
 

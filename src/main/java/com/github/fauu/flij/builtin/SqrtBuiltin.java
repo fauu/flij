@@ -11,7 +11,12 @@ import com.github.fauu.flij.expression.NumberExpression;
 public class SqrtBuiltin extends Builtin {
 
   public SqrtBuiltin(String symbol) {
-    super(symbol, n -> n == 1);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 1;
   }
 
   @Override

@@ -15,14 +15,17 @@ import com.github.fauu.flij.expression.Expression;
 public class PrintBuiltin extends Builtin {
   
   public PrintBuiltin(String symbol, String variant) {
-    super(symbol, variant, n -> n >= 1);
+    super(symbol, variant);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n >= 1;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     String output = arguments.stream().map(Object::toString).collect(joining(" "));
     
     System.out.print(output);

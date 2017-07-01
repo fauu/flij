@@ -11,14 +11,17 @@ import com.github.fauu.flij.expression.SequenceExpression;
 public class HeadBuiltin extends Builtin {
 
   public HeadBuiltin(String symbol) {
-    super(symbol, n -> n == 1);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 1;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     SequenceExpression<?, ?> seq = ensureArgumentType(arguments.get(0), SequenceExpression.class);
 
     if (seq.isEmpty()) {

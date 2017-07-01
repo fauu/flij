@@ -19,14 +19,17 @@ import com.github.fauu.flij.expression.NumberExpression;
 public class CompareBuiltin extends Builtin {
 
   public CompareBuiltin(String symbol, String variant) {
-    super(symbol, variant, n -> n >= 1);
+    super(symbol, variant);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n >= 1;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     List<Float> numberArguments = arguments.stream()
         .map(arg -> ensureArgumentType(arg, NumberExpression.class).getValue())
         .collect(toList());

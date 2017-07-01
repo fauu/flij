@@ -1,33 +1,30 @@
 package com.github.fauu.flij.builtin;
 
 import java.util.List;
-import java.util.function.Function;
 
 import com.github.fauu.flij.Evaluable;
 import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
-import com.github.fauu.flij.evaluator.WrongArgumentCountException;
 import com.github.fauu.flij.evaluator.WrongArgumentTypeException;
 import com.github.fauu.flij.expression.Expression;
 
 public abstract class Builtin implements Evaluable {
 
-  protected final String symbol;
   protected final String variant;
-  protected final Function<Integer, Boolean> argumentCountValidator;
+
+  private final String symbol;
   
   protected Builtin(String symbol) {
-    this(symbol, null, null);
+    this(symbol, null);
   }
 
-  protected Builtin(String symbol, Function<Integer, Boolean> argumentCountValidator) {
-    this(symbol, null, argumentCountValidator);
-  }
-
-  protected Builtin(String symbol, String variant, Function<Integer, Boolean> argumentCountValidator) {
+  protected Builtin(String symbol, String variant) {
     this.symbol = symbol;
     this.variant = variant;
-    this.argumentCountValidator = argumentCountValidator;
+  }
+  
+  public boolean isArgumentCountValid(int n) {
+    return true;
   }
 
   public abstract Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
@@ -58,12 +55,10 @@ public abstract class Builtin implements Evaluable {
     return argument;
   }
 
-  protected final void validateArgumentCount(List<?> arguments) {
-    if (!argumentCountValidator.apply(arguments.size())) {
-      throw new WrongArgumentCountException(symbol);
-    }
+  public String getSymbol() {
+    return symbol;
   }
-
+  
   @Override
   public String toString() {
     return "<built-in>";

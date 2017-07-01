@@ -11,14 +11,17 @@ import com.github.fauu.flij.expression.Expression;
 public class QuoteBuiltin extends Builtin {
   
   public QuoteBuiltin(String symbol) {
-    super(symbol, n -> n == 1);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 1;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     return arguments.get(0);
   }
 

@@ -12,14 +12,17 @@ import com.github.fauu.flij.expression.SequenceExpression;
 public class SubSequenceBuiltin extends Builtin {
 
   public SubSequenceBuiltin(String symbol) {
-    super(symbol, n -> n == 2 || n == 3);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 2 || n == 3;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-    
     SequenceExpression<?, ?> seq = ensureArgumentType(arguments.get(0), SequenceExpression.class);
     float fromIdx = ensureArgumentType(arguments.get(1), NumberExpression.class).getValue();
     float toIdx = seq.getLength();

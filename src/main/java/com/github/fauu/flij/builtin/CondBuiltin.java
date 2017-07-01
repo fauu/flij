@@ -12,14 +12,17 @@ import com.github.fauu.flij.expression.Expression;
 public class CondBuiltin extends Builtin {
 
   public CondBuiltin(String symbol) {
-    super(symbol, n -> n % 2 == 0);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n % 2 == 0;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     Expression currentResult = Expression.NIL;
     for (int i = 0; i < arguments.size(); i += 2) {
       BooleanExpression evaluatedCondition = 

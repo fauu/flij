@@ -16,14 +16,17 @@ import com.github.fauu.flij.expression.SymbolExpression;
 public class LambdaBuiltin extends Builtin {
 
   public LambdaBuiltin(String symbol) {
-    super(symbol, n -> n == 2);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 2;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     ListExpression argumentList = ensureArgumentType(arguments.get(0), ListExpression.class);
     List<String> argumentSymbols = argumentList.getElements().stream()
         .map(arg -> ensureArgumentType(arg, SymbolExpression.class).getValue())

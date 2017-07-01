@@ -11,14 +11,17 @@ import com.github.fauu.flij.expression.SymbolExpression;
 public class DefineBuiltin extends Builtin {
   
   public DefineBuiltin(String symbol) {
-    super(symbol, n -> n == 2);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 2;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-
     String symbol = ensureArgumentType(arguments.get(0), SymbolExpression.class).getValue();
     environment.setDefinition(symbol, arguments.get(1));
 

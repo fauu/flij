@@ -12,14 +12,17 @@ import com.github.fauu.flij.expression.Expression;
 public class IfBuiltin extends Builtin {
 
   public IfBuiltin(String symbol) {
-    super(symbol, (n) -> n == 2 || n == 3);
+    super(symbol);
+  }
+
+  @Override
+  public boolean isArgumentCountValid(int n) {
+    return n == 2 || n == 3;
   }
 
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    validateArgumentCount(arguments);
-    
     boolean evaluatedCondition = 
         BooleanExpression.fromExpression(evaluator.evaluate(arguments.get(0), environment)).getValue();
 
