@@ -2,8 +2,6 @@ package com.github.fauu.flij.expression;
 
 import java.util.Objects;
 
-import com.github.fauu.flij.reader.lexeme.Lexeme;
-
 public abstract class AtomExpression<T> extends Expression {
 
   protected T value;
@@ -21,23 +19,6 @@ public abstract class AtomExpression<T> extends Expression {
   @Override
   public String toString() {
     return value.toString();
-  }
-
-  public static AtomExpression<?> fromLexeme(Lexeme lexeme) {
-    switch (lexeme.getTokenType()) {
-      case NUMBER:
-        return new NumberExpression(lexeme);
-      case BOOLEAN:
-        return new BooleanExpression(lexeme);
-      case CHARACTER:
-        return new CharacterExpression(lexeme);
-      case STRING:
-        return new StringExpression(lexeme);
-      case SYMBOL:
-        return new SymbolExpression(lexeme);
-      default:
-        throw new IllegalArgumentException("Cannot construct atom expression from given token");
-    }
   }
 
   @Override
