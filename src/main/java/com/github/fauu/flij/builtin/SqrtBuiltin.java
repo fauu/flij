@@ -22,9 +22,9 @@ public class SqrtBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    float evaluatedArgValue = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
+    double value = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
 
-    return new NumberExpression((float) Math.sqrt((double) evaluatedArgValue));
+    return new NumberExpression(Math.sqrt(value));
   }
 
 }

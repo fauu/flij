@@ -18,11 +18,11 @@ public class SubBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    float result = IntStream.range(0, arguments.size()).mapToObj(i -> {
-      float value = ensureArgumentType(arguments.get(i), NumberExpression.class).getValue();
+    double result = IntStream.range(0, arguments.size()).mapToObj(i -> {
+      double value = ensureArgumentType(arguments.get(i), NumberExpression.class).getValue();
 
       return i == 0 ? value : -value;
-    }).reduce(0.0f, Float::sum);
+    }).reduce(0.0, Double::sum);
 
     return new NumberExpression(result);
   }

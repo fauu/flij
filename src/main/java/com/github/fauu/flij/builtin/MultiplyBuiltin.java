@@ -17,9 +17,9 @@ public class MultiplyBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    float result = arguments.stream()
+    double result = arguments.stream()
         .map(arg -> ensureArgumentType(arg, NumberExpression.class).getValue())
-        .reduce(1.0f, (a, b) -> a * b);
+        .reduce(1.0, (a, b) -> a * b);
 
     return new NumberExpression(result);
   }

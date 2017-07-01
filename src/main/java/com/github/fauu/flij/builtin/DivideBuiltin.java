@@ -22,9 +22,9 @@ public class DivideBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    float number = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
+    double number = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
     if (arguments.size() > 1) {
-      float result = arguments.stream().skip(1).map(divisorExpr -> {
+      double result = arguments.stream().skip(1).map(divisorExpr -> {
         return ensureArgumentType(divisorExpr, NumberExpression.class).getValue();
       }).reduce(number, (a, b) -> a / b);
 

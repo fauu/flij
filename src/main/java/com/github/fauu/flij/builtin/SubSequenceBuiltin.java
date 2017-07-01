@@ -24,8 +24,8 @@ public class SubSequenceBuiltin extends Builtin {
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
     SequenceExpression<?, ?> seq = ensureArgumentType(arguments.get(0), SequenceExpression.class);
-    float fromIdx = ensureArgumentType(arguments.get(1), NumberExpression.class).getValue();
-    float toIdx = seq.getLength();
+    double fromIdx = ensureArgumentType(arguments.get(1), NumberExpression.class).getValue();
+    double toIdx = seq.getLength();
     if (arguments.size() == 3) {
       toIdx = ensureArgumentType(arguments.get(2), NumberExpression.class).getValue();
     }

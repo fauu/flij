@@ -30,14 +30,14 @@ public class CompareBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    List<Float> numberArguments = arguments.stream()
+    List<Double> numberArguments = arguments.stream()
         .map(arg -> ensureArgumentType(arg, NumberExpression.class).getValue())
         .collect(toList());
 
     boolean result = true;
     for (int i = 0; i < numberArguments.size() - 1; i++) {
-      float a = numberArguments.get(i);
-      float b = numberArguments.get(i + 1);
+      double a = numberArguments.get(i);
+      double b = numberArguments.get(i + 1);
       
       boolean partialResult;
       switch (variant) {
