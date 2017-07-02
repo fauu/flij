@@ -84,7 +84,7 @@ x ;; => 3.0
   (fn (n)
     (if (= n 0)
       1
-      (* n (fact (dec n)))))) ;; => nil
+      (* n (factorial (decrement n)))))) ;; => nil
 (factorial 3) ;; => 6.0
 
 ;; nil is equivalent to an empty sequence
