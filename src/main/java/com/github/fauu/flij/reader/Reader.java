@@ -1,7 +1,9 @@
 package com.github.fauu.flij.reader;
 
-import java.util.ArrayList;
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,20 +43,12 @@ public class Reader {
     String completedInput = "";
 
     int listStartBias = 0;
+    boolean beginning = true;
     do {
-      String input = listStartBias == 0 ? firstLine : scanner.nextLine();
-
-      for (int i = 0; i < input.length(); i++) {
-        char c = input.charAt(i);
-
-        if (c == TokenType.LIST_START.getCharacterValue()) {
-          listStartBias++;
-        } else if (c == TokenType.LIST_END.getCharacterValue()) {
-          listStartBias--;
-        }
-      }
-
-      completedInput += input.trim() + ' ';
+      String line = beginning ? firstLine : scanner.nextLine();
+      listStartBias += determineListStartBiasForLine(line);
+      completedInput += line.trim() + '\n';
+      beginning = false;
     } while (listStartBias > 0);
 
     if (listStartBias < 0) {
@@ -62,6 +56,22 @@ public class Reader {
     }
 
     return completedInput;
+  }
+
+  private int determineListStartBiasForLine(String line) {
+    int listStartBias = 0;
+    
+    for (int i = 0; i < line.length(); i++) {
+      char c = line.charAt(i);
+
+      if (c == TokenType.LIST_START.getCharacterValue()) {
+        listStartBias++;
+      } else if (c == TokenType.LIST_END.getCharacterValue()) {
+        listStartBias--;
+      }
+    }
+
+    return listStartBias;
   }
 
   private Expression parse(List<Lexeme> lexemes) {
@@ -78,53 +88,69 @@ public class Reader {
 
     return expr;
   }
-
+  
   private List<Lexeme> lex(String input) {
-    List<Lexeme> output = new ArrayList<>();
+    List<Lexeme> output = new LinkedList<>();
+    
+    CharacterIterator it = new StringCharacterIterator(input);
+    while (it.current() != CharacterIterator.DONE) {
+      lexNext(it).ifPresent(output::add);
+    }
+    
+    return output;
+  }
 
-    for (int i = 0; i < input.length();) {
-      final char c = input.charAt(i);
-
-      if (TokenType.existsForChar(c)) {
-        output.add(new Lexeme(TokenType.forChar(c)));
-        i++;
-      } else if (c == ' ') {
-        i++;
-      } else {
-        int start = i;
-        boolean inStringLiteral = false;
-        while (i < input.length()) {
-          char cc = input.charAt(i);
-
-          if (inStringLiteral) {
-            if (cc == '"') {
-              i++;
-              break;
-            }
-          } else if (cc == ' ' || TokenType.existsForChar(cc)) {
+  private Optional<Lexeme> lexNext(CharacterIterator it) {
+    char c = it.current();
+    
+    if (TokenType.existsForChar(c)) {
+      Lexeme lexeme = new Lexeme(TokenType.forChar(c));
+      it.next();
+      return Optional.of(lexeme);
+    } else if (c == ' ' || c == '\n') {
+      it.next();
+    } else if (c == ';') {
+      skipIfComment(it);
+    } else {
+      StringBuilder tokenBuilder = new StringBuilder();
+      boolean inStringLiteral = false;
+      while (c != CharacterIterator.DONE) {
+        if (inStringLiteral) {
+          if (c == '"') {
+            tokenBuilder.append(c);
+            c = it.next();
             break;
           }
-
-          if (cc == '"') {
-            inStringLiteral = true;
-          }
-
-          i++;
+        } else if (c == ' ' || c == '\n' || TokenType.existsForChar(c)) {
+          break;
         }
-
-        String token = input.substring(start, i);
-        Optional<Lexeme> maybeLexeme = tryMatchingToken(token);
-        Lexeme lexeme = maybeLexeme.orElseThrow(() -> new ExpressionReadException("Unexpected token '" + token + "'"));
-
-        if (lexeme.getTokenType() == TokenType.COMMENT_START) {
-          return output;
+        
+        if (c == '"') {
+          inStringLiteral = true;
         }
-
-        output.add(lexeme);
+        
+        tokenBuilder.append(c);
+        c = it.next();
       }
+      
+      String token = tokenBuilder.toString();
+      Optional<Lexeme> maybeLexeme = tryMatchingToken(token);
+      Lexeme lexeme = maybeLexeme.orElseThrow(() -> new ExpressionReadException("Unexpected token '" + token + "'"));
+
+      return Optional.of(lexeme);
     }
 
-    return output;
+    return Optional.empty();
+  }
+
+  private void skipIfComment(CharacterIterator it) {
+    if (it.next() == ';') {
+      while (it.current() != '\n') {
+        it.next();
+      }
+    } else {
+      it.previous();
+    }
   }
 
   private Optional<Lexeme> tryMatchingToken(String token) {
