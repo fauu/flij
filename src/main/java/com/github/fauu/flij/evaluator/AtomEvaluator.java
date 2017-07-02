@@ -14,7 +14,7 @@ public class AtomEvaluator implements ExpressionEvaluator<AtomExpression<?>> {
 
   @Override
   public Expression evaluate(AtomExpression<?> input, Environment environment) {
-    Objects.requireNonNull(expressionEvaluator, "AtomEvaluator depends on ExpressionEvaluator<Expression>");
+    Objects.requireNonNull(expressionEvaluator);
 
     if (input instanceof SymbolExpression) {
       Optional<Evaluable> maybeEvaluable = environment.getDefinition(((SymbolExpression) input).getValue());

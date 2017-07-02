@@ -12,8 +12,8 @@ public class Evaluator implements ExpressionEvaluator<Expression> {
   private ExpressionEvaluator<ListExpression> listEvaluator;
 
   public Expression evaluate(Expression input, Environment environment) {
-    Objects.requireNonNull(atomEvaluator, "Evaluator depends on ExpressionEvaluator<AtomExpression>");
-    Objects.requireNonNull(listEvaluator, "Evaluator depends on ExpressionEvaluator<ListExpression>");
+    Objects.requireNonNull(atomEvaluator);
+    Objects.requireNonNull(listEvaluator);
     
     if (input instanceof AtomExpression) {
       return atomEvaluator.evaluate((AtomExpression<?>) input, environment);

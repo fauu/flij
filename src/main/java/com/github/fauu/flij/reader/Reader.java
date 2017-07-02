@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.Scanner;
 
@@ -31,11 +32,11 @@ public class Reader {
   }
 
   public Expression read(String firstLine, Scanner scanner) {
-    Objects.requireNonNull(firstLine, "No input provided for the reader");
-    
+    Objects.requireNonNull(firstLine);
+
     return parse(lex(completeInput(firstLine, scanner)));
   }
-  
+
   private String completeInput(String firstLine, Scanner scanner) {
     String completedInput = "";
 
@@ -45,7 +46,7 @@ public class Reader {
 
       for (int i = 0; i < input.length(); i++) {
         char c = input.charAt(i);
-        
+
         if (c == TokenType.LIST_START.getCharacterValue()) {
           listStartBias++;
         } else if (c == TokenType.LIST_END.getCharacterValue()) {
@@ -55,11 +56,11 @@ public class Reader {
 
       completedInput += input.trim() + ' ';
     } while (listStartBias > 0);
-    
+
     if (listStartBias < 0) {
       throw new ExpressionReadException("Unmatched list end delimiter");
     }
-    
+
     return completedInput;
   }
 
@@ -69,21 +70,21 @@ public class Reader {
     }
 
     Iterator<Lexeme> it = lexemes.iterator();
-    Expression expr =  expressionParser.parse(it, it.next());
-    
+    Expression expr = expressionParser.parse(it, it.next());
+
     if (it.hasNext()) {
       throw new ExpressionReadException("Single expression expected");
     }
-    
+
     return expr;
   }
-  
+
   private List<Lexeme> lex(String input) {
     List<Lexeme> output = new ArrayList<>();
 
     for (int i = 0; i < input.length();) {
       final char c = input.charAt(i);
-      
+
       if (TokenType.existsForChar(c)) {
         output.add(new Lexeme(TokenType.forChar(c)));
         i++;
@@ -110,30 +111,32 @@ public class Reader {
 
           i++;
         }
-        
-        boolean matchedToken = false;
 
         String token = input.substring(start, i);
-        for (TokenType tokenType : TokenType.patternValues) {
-          Matcher matcher = tokenType.getPatternValue().matcher(token);
-          if (matcher.find()) {
-            if (tokenType == TokenType.COMMENT_START) {
-              return output;
-            }
+        Optional<Lexeme> maybeLexeme = tryMatchingToken(token);
+        Lexeme lexeme = maybeLexeme.orElseThrow(() -> new ExpressionReadException("Unexpected token '" + token + "'"));
 
-            output.add(new Lexeme(tokenType, matcher.group()));
-            matchedToken = true;
-            break;
-          }
+        if (lexeme.getTokenType() == TokenType.COMMENT_START) {
+          return output;
         }
 
-        if (!matchedToken) {
-          throw new ExpressionReadException("Unexpected token '" + token + "'");
-        }
+        output.add(lexeme);
       }
     }
 
     return output;
+  }
+
+  private Optional<Lexeme> tryMatchingToken(String token) {
+    for (TokenType tokenType : TokenType.patternValues) {
+      Matcher matcher = tokenType.getPatternValue().matcher(token);
+
+      if (matcher.find()) {
+        return Optional.of(new Lexeme(tokenType, matcher.group()));
+      }
+    }
+
+    return Optional.empty();
   }
 
 }

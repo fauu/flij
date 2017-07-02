@@ -35,11 +35,8 @@ public class Flij {
   private Evaluator createEvaluator() {
     Evaluator evaluator = new Evaluator();
 
-    AtomEvaluator atomEvaluator = new AtomEvaluator();
-    atomEvaluator.setExpressionEvaluator(evaluator);
-
-    ListEvaluator listEvaluator = new ListEvaluator();
-    listEvaluator.setExpressionEvaluator(evaluator);
+    AtomEvaluator atomEvaluator = createAtomEvaluator(evaluator);
+    ListEvaluator listEvaluator = createListEvaluator(evaluator);
 
     evaluator.setAtomEvaluator(atomEvaluator);
     evaluator.setListEvaluator(listEvaluator);
@@ -47,12 +44,28 @@ public class Flij {
     return evaluator;
   }
 
+  private AtomEvaluator createAtomEvaluator(Evaluator evaluator) {
+    AtomEvaluator atomEvaluator = new AtomEvaluator();
+    atomEvaluator.setExpressionEvaluator(evaluator);
+
+    return atomEvaluator;
+  }
+
+  private ListEvaluator createListEvaluator(Evaluator evaluator) {
+    ListEvaluator listEvaluator = new ListEvaluator();
+    listEvaluator.setExpressionEvaluator(evaluator);
+
+    return listEvaluator;
+  }
+
   private Environment createGlobalEnvironment(Reader reader, ExpressionEvaluator<Expression> evaluator) {
     Environment environment = new Environment();
 
     try {
       initBuiltins(environment);
-      loadStandardLibrary(reader, evaluator, environment);
+
+      InputStream standardLibraryFileStream = Flij.class.getResourceAsStream(STANDARD_LIBRARY_PATH);
+      evaluateFile(standardLibraryFileStream, reader, evaluator, environment);
     } catch (InitializationError e) {
       System.out.println(e.getMessage());
       System.exit(-1);
@@ -94,10 +107,9 @@ public class Flij {
         });
   }
 
-  private void loadStandardLibrary(Reader reader, ExpressionEvaluator<Expression> evaluator, Environment environment) {
+  private void evaluateFile(InputStream fileStream, Reader reader, ExpressionEvaluator<Expression> evaluator,
+      Environment environment) {
     try {
-      InputStream fileStream = Flij.class.getResourceAsStream(STANDARD_LIBRARY_PATH);
-
       Scanner scanner = new Scanner(fileStream);
       while (scanner.hasNextLine()) {
         evaluator.evaluate(reader.read(scanner.nextLine(), scanner), environment);
@@ -105,6 +117,6 @@ public class Flij {
     } catch (Exception e) {
       throw new InitializationError("Could not load standard library");
     }
-  } 
+  }
 
 }

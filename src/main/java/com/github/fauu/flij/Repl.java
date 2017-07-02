@@ -20,10 +20,10 @@ public class Repl {
   public Printer printer;
   
   public Repl(Reader reader, Evaluator evaluator, Environment environment, Printer printer) {
-    Objects.requireNonNull(reader, "REPL depends on a Reader");
-    Objects.requireNonNull(evaluator, "REPL depends on a Evaluator");
-    Objects.requireNonNull(environment, "REPL depends on an Environment");
-    Objects.requireNonNull(printer, "REPL depends on a Printer");
+    Objects.requireNonNull(reader);
+    Objects.requireNonNull(evaluator);
+    Objects.requireNonNull(environment);
+    Objects.requireNonNull(printer);
 
     this.reader = reader;
     this.evaluator = evaluator;

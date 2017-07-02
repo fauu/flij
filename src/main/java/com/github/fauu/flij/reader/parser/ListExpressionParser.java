@@ -16,7 +16,7 @@ public class ListExpressionParser implements Parser<ListExpression> {
 
   @Override
   public ListExpression parse(Iterator<Lexeme> it, Lexeme current) {
-    Objects.requireNonNull(expressionParser, "ListExpressionParser depends on Parser<Expression>");
+    Objects.requireNonNull(expressionParser);
 
     if (current.getTokenType() != TokenType.LIST_START) {
       throw new ExpressionParseException("List expression does not start with LIST_START token");

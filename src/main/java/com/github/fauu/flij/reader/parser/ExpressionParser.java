@@ -17,8 +17,8 @@ public class ExpressionParser implements Parser<Expression> {
 
   @Override
   public Expression parse(Iterator<Lexeme> it, Lexeme current) {
-    Objects.requireNonNull(listParser, "ExpressionParser depends on a Parser<ListExpression>");
-    Objects.requireNonNull(atomParser, "ExpressionParser depends on a Parser<AtomExpression>");
+    Objects.requireNonNull(listParser);
+    Objects.requireNonNull(atomParser);
     
     boolean quoted = false;
     if (current.getTokenType() == TokenType.QUOTE) {
@@ -28,24 +28,23 @@ public class ExpressionParser implements Parser<Expression> {
     
     TokenType t = current.getTokenType();
     
-    Parser<? extends Expression> delegate = null;
-    if (t == TokenType.LIST_START) {
-      delegate = listParser;
-    } else if (t.isPatternValue()) {
-      delegate = atomParser;
-    }
-    
-    if (delegate == null) {
-      throw new ExpressionParseException("Unexpected token " + t);
-    }
-    
-    Expression parsedExpression = delegate.parse(it, current);
+    Expression parsedExpression = pickDelegateParser(t).parse(it, current);
       
     if (quoted) {
       parsedExpression = new ListExpression(new SymbolExpression("quote"), parsedExpression);
     }
     
     return parsedExpression;
+  }
+
+  private Parser<? extends Expression> pickDelegateParser(TokenType t) {
+    if (t == TokenType.LIST_START) {
+      return listParser;
+    } else if (t.isPatternValue()) {
+      return atomParser;
+    }
+
+    throw new ExpressionParseException("Unexpected token " + t);
   }
 
   public void setListParser(Parser<ListExpression> listParser) {
