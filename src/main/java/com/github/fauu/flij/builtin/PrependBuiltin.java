@@ -36,7 +36,7 @@ public class PrependBuiltin extends Builtin {
     
     ListExpression list = ensureArgumentType(listArgument, ListExpression.class);
     
-    List<Expression> newElements = new LinkedList<Expression>();
+    List<Expression> newElements = new LinkedList<>();
     newElements.add(element);
     newElements.addAll(list.getElements());
 

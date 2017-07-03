@@ -9,7 +9,6 @@ import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.SequenceExpression;
 
 @RegisteredBuiltin("=")
-@Shortcircuiting
 public class EqualsBuiltin extends Builtin {
 
   public EqualsBuiltin(String symbol) {
@@ -24,11 +23,11 @@ public class EqualsBuiltin extends Builtin {
   @Override
   public Expression evaluate(List<Expression> arguments, ExpressionEvaluator<Expression> evaluator,
       Environment environment) {
-    boolean result = true;
+    boolean result;
 
     Expression evaluatedFirstArg = evaluator.evaluate(arguments.get(0), environment);
     if (isEmptySequence(evaluatedFirstArg)) {
-      result = !arguments.stream().skip(1).anyMatch(arg -> !isEmptySequence(evaluator.evaluate(arg, environment)));
+      result = arguments.stream().skip(1).allMatch(this::isEmptySequence);
     } else {
       long distinctCount = arguments.stream().map(arg -> evaluator.evaluate(arg, environment)).distinct().count();
       result = distinctCount == 1;

@@ -1,8 +1,8 @@
 package com.github.fauu.flij;
 
-public class InitializationError extends Error {
+class InitializationError extends Error {
 
-  public InitializationError(String msg) {
+  InitializationError(String msg) {
     super("INITIALIZATION ERROR: " + msg);
   }
 

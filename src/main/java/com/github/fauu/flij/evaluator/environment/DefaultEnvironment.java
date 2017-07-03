@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class DefaultEnvironment implements Environment {
   
-  private Optional<Environment> parent;
+  private Environment parent;
 
   private final Map<String, Evaluable> definitions = new HashMap<>();
   
@@ -19,19 +19,25 @@ public class DefaultEnvironment implements Environment {
   }
   
   public DefaultEnvironment(Environment parent) {
-    this.parent = Optional.ofNullable(parent);
+    this.parent = parent;
   }
   
   @Override
   public boolean hasDefinition(String symbol) {
-    return definitions.containsKey(symbol) || parent.map(p -> p.hasDefinition(symbol)).orElse(false);
+    return definitions.containsKey(symbol) || (parent != null && parent.hasDefinition(symbol));
   }
   
   @Override
   public Optional<Evaluable> getDefinition(String symbol) {
-    Optional<Evaluable> localResult = Optional.ofNullable(definitions.get(symbol));
+    Evaluable definition = definitions.get(symbol);
 
-    return localResult.isPresent() ? localResult : parent.flatMap(p -> p.getDefinition(symbol));
+    if (definition == null) {
+      if (parent != null) {
+        return parent.getDefinition(symbol);
+      }
+    }
+
+    return Optional.ofNullable(definition);
   }
   
   @Override

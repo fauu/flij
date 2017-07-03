@@ -16,7 +16,7 @@ public class ListExpression extends Expression implements SequenceExpression<Lis
   }
   
   public ListExpression(Expression first, Expression second) {
-    this(new LinkedList<Expression>(Arrays.asList(first, second)));
+    this(new LinkedList<>(Arrays.asList(first, second)));
   }
   
   public ListExpression(List<Expression> children) {

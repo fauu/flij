@@ -27,11 +27,11 @@ public enum TokenType {
   public static List<TokenType> patternValues;
   public static Map<Character, TokenType> charToTokenType;
 
-  private TokenType(char character) {
+  TokenType(char character) {
     this.character = character;
   }
   
-  private TokenType(Pattern pattern) {
+  TokenType(Pattern pattern) {
     this.pattern = pattern;
   }
   

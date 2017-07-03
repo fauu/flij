@@ -23,12 +23,12 @@ import com.github.fauu.flij.reader.DefaultReader;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
-public class Flij {
+class Flij {
 
   private static final String STANDARD_LIBRARY_PATH = "/lib/std.flj";
   private static final String BUILTINS_PACKAGE_NAME = "com.github.fauu.flij.builtin";
 
-  public void run() {
+  void run() {
     Reader reader = new DefaultReader(new DefaultLexer());
     Evaluator evaluator = createEvaluator();
     Environment environment = createGlobalEnvironment(reader, evaluator);
@@ -81,7 +81,7 @@ public class Flij {
 
   private void initBuiltins(Environment environment) {
     new FastClasspathScanner(BUILTINS_PACKAGE_NAME).scan()
-        .getNamesOfClassesWithAnnotationsAnyOf(RegisteredBuiltin.class, RegisteredVariantBuiltin.class).stream()
+        .getNamesOfClassesWithAnnotationsAnyOf(RegisteredBuiltin.class, RegisteredVariantBuiltin.class)
         .forEach(classname -> {
           try {
             Class<?> clazz = Class.forName(classname);

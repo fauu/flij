@@ -22,10 +22,10 @@ public class Repl {
 
   private static final String COMMAND_PREFIX = "\\";
 
-  public Reader reader;
-  public Evaluator evaluator;
-  public Environment environment;
-  public Printer printer;
+  private Reader reader;
+  private Evaluator evaluator;
+  private Environment environment;
+  private Printer printer;
 
   private Map<String, ReplCommand> commands = new HashMap<>();
 
@@ -56,10 +56,11 @@ public class Repl {
   }
 
   public void run() {
-    System.out.println("flij REPL (type \\exit to exit)");
+    System.out.println("flij REPL (type \\help for help)");
 
     Scanner scanner = new Scanner(System.in);
 
+    //noinspection InfiniteLoopStatement
     for (;;) {
       System.out.print("> ");
 

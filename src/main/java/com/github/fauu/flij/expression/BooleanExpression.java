@@ -24,11 +24,11 @@ public class BooleanExpression extends AtomExpression<Boolean> {
   }
 
   public boolean isTrue() {
-    return value == true;
+    return value;
   }
   
   public boolean isFalse() {
-    return value == false;
+    return !value;
   }
   
   public static BooleanExpression fromExpression(Expression expression) {

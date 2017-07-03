@@ -22,7 +22,7 @@ public class ListExpressionParser implements Parser<ListExpression> {
       throw new ExpressionParseException("List expression does not start with LIST_START token");
     }
 
-    List<Expression> children = new LinkedList<Expression>();
+    List<Expression> children = new LinkedList<>();
 
     while (it.hasNext()) {
       current = it.next();

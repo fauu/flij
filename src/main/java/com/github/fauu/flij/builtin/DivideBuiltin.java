@@ -24,9 +24,10 @@ public class DivideBuiltin extends Builtin {
       Environment environment) {
     double number = ensureArgumentType(arguments.get(0), NumberExpression.class).getValue();
     if (arguments.size() > 1) {
-      double result = arguments.stream().skip(1).map(divisorExpr -> {
-        return ensureArgumentType(divisorExpr, NumberExpression.class).getValue();
-      }).reduce(number, (a, b) -> a / b);
+      double result = arguments.stream()
+          .skip(1)
+          .map(divisorExpr -> ensureArgumentType(divisorExpr, NumberExpression.class).getValue())
+          .reduce(number, (a, b) -> a / b);
 
       return new NumberExpression(result);
     }

@@ -43,7 +43,7 @@ public class DefaultLexer implements Lexer {
         if (inStringLiteral) {
           if (charDelimitsStringLiteral(c)) {
             tokenBuilder.append(c);
-            c = it.next();
+            it.next();
             break;
           }
         } else if (charSeparatesTokens(c) || TokenType.existsForChar(c)) {

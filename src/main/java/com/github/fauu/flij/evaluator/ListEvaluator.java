@@ -67,7 +67,7 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
       throw new ExpressionEvaluationException("Expected symbol at list start");
     }
 
-    String symbol = (String) ((SymbolExpression) firstExpr).getValue();
+    String symbol = ((SymbolExpression) firstExpr).getValue();
     Evaluable evaluable = environment.getDefinition(symbol)
         .orElseThrow(() -> new ExpressionEvaluationException("Undefined symbol '" + symbol + "'"));
     

@@ -43,14 +43,14 @@ public class DefaultReader implements Reader {
   }
 
   private String completeInput(String firstLine, Scanner scanner) {
-    String completedInput = "";
+    StringBuilder completedInputBuilder = new StringBuilder();
 
     int listStartBias = 0;
     boolean beginning = true;
     do {
       String line = beginning ? firstLine : scanner.nextLine();
       listStartBias += determineListStartBiasForLine(line);
-      completedInput += line.trim() + '\n';
+      completedInputBuilder.append(line.trim() + '\n');
       beginning = false;
     } while (listStartBias > 0);
 
@@ -58,7 +58,7 @@ public class DefaultReader implements Reader {
       throw new ExpressionReadException("Unmatched list end delimiter");
     }
 
-    return completedInput;
+    return completedInputBuilder.toString();
   }
 
   private int determineListStartBiasForLine(String line) {
