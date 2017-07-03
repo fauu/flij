@@ -5,9 +5,10 @@ import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
-import com.github.fauu.flij.Evaluable;
 import com.github.fauu.flij.builtin.Builtin;
 import com.github.fauu.flij.builtin.Shortcircuiting;
+import com.github.fauu.flij.evaluator.environment.DefaultEnvironment;
+import com.github.fauu.flij.evaluator.environment.Environment;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.FunctionExpression;
 import com.github.fauu.flij.expression.ListExpression;
@@ -23,7 +24,7 @@ public class ListEvaluator implements ExpressionEvaluator<ListExpression> {
       throw new WrongArgumentCountException(fn.toString());
     }
 
-    Environment localEnvironment = new Environment(environment);
+    Environment localEnvironment = new DefaultEnvironment(environment);
 
     int i = 0;
     for (String symbol : fn.getArgumentSymbols()) {

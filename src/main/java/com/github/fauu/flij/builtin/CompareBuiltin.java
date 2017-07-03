@@ -4,8 +4,8 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
+import com.github.fauu.flij.evaluator.environment.Environment;
 import com.github.fauu.flij.expression.BooleanExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.NumberExpression;

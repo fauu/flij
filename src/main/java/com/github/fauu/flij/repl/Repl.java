@@ -1,11 +1,12 @@
-package com.github.fauu.flij;
+package com.github.fauu.flij.repl;
 
 import java.util.Objects;
 import java.util.Scanner;
 
-import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.Evaluator;
 import com.github.fauu.flij.evaluator.ExpressionEvaluationException;
+import com.github.fauu.flij.evaluator.environment.Environment;
+import com.github.fauu.flij.printer.Printer;
 import com.github.fauu.flij.reader.ExpressionReadException;
 import com.github.fauu.flij.reader.Reader;
 

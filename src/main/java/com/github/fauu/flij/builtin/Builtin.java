@@ -2,10 +2,10 @@ package com.github.fauu.flij.builtin;
 
 import java.util.List;
 
-import com.github.fauu.flij.Evaluable;
-import com.github.fauu.flij.evaluator.Environment;
+import com.github.fauu.flij.evaluator.Evaluable;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.evaluator.WrongArgumentTypeException;
+import com.github.fauu.flij.evaluator.environment.Environment;
 import com.github.fauu.flij.expression.Expression;
 
 public abstract class Builtin implements Evaluable {

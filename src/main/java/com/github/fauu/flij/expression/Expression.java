@@ -1,6 +1,6 @@
 package com.github.fauu.flij.expression;
 
-import com.github.fauu.flij.Evaluable;
+import com.github.fauu.flij.evaluator.Evaluable;
 
 public abstract class Expression implements Evaluable {
 

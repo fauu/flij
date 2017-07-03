@@ -3,7 +3,7 @@ package com.github.fauu.flij.evaluator;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.github.fauu.flij.Evaluable;
+import com.github.fauu.flij.evaluator.environment.Environment;
 import com.github.fauu.flij.expression.AtomExpression;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.SymbolExpression;

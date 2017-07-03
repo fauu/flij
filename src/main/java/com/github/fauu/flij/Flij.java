@@ -9,12 +9,16 @@ import com.github.fauu.flij.builtin.SymbolMapping;
 import com.github.fauu.flij.builtin.RegisteredBuiltin;
 import com.github.fauu.flij.builtin.RegisteredVariantBuiltin;
 import com.github.fauu.flij.evaluator.AtomEvaluator;
-import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.Evaluator;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
 import com.github.fauu.flij.evaluator.ListEvaluator;
+import com.github.fauu.flij.evaluator.environment.DefaultEnvironment;
+import com.github.fauu.flij.evaluator.environment.Environment;
 import com.github.fauu.flij.expression.Expression;
+import com.github.fauu.flij.printer.DefaultPrinter;
 import com.github.fauu.flij.reader.Reader;
+import com.github.fauu.flij.repl.Repl;
+import com.github.fauu.flij.reader.DefaultReader;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
@@ -24,11 +28,11 @@ public class Flij {
   private static final String BUILTINS_PACKAGE_NAME = "com.github.fauu.flij.builtin";
 
   public void run() {
-    Reader reader = new Reader();
+    Reader reader = new DefaultReader();
     Evaluator evaluator = createEvaluator();
     Environment environment = createGlobalEnvironment(reader, evaluator);
 
-    Repl repl = new Repl(reader, evaluator, environment, new Printer());
+    Repl repl = new Repl(reader, evaluator, environment, new DefaultPrinter());
     repl.run();
   }
 
@@ -59,7 +63,7 @@ public class Flij {
   }
 
   private Environment createGlobalEnvironment(Reader reader, ExpressionEvaluator<Expression> evaluator) {
-    Environment environment = new Environment();
+    Environment environment = new DefaultEnvironment();
 
     try {
       initBuiltins(environment);

@@ -4,8 +4,8 @@ import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
-import com.github.fauu.flij.evaluator.Environment;
 import com.github.fauu.flij.evaluator.ExpressionEvaluator;
+import com.github.fauu.flij.evaluator.environment.Environment;
 import com.github.fauu.flij.expression.Expression;
 
 @RegisteredVariantBuiltin({
