@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.fauu.flij.reader.lexer.Lexeme;
 
-public interface Parser<T> {
+interface Parser<T> {
   
   T parse(Iterator<Lexeme> it, Lexeme current);
 

@@ -10,15 +10,15 @@ import com.github.fauu.flij.expression.Expression;
 
 public abstract class Builtin implements Evaluable {
 
-  protected final String variant;
+  final String variant;
 
   private final String symbol;
   
-  protected Builtin(String symbol) {
+  Builtin(String symbol) {
     this(symbol, null);
   }
 
-  protected Builtin(String symbol, String variant) {
+  Builtin(String symbol, String variant) {
     this.symbol = symbol;
     this.variant = variant;
   }
@@ -31,7 +31,7 @@ public abstract class Builtin implements Evaluable {
       Environment environment);
   
   @SuppressWarnings("unchecked")
-  protected final <T> T ensureArgumentType(Expression argument, Class<T> clazz) {
+  final <T> T ensureArgumentType(Expression argument, Class<T> clazz) {
     if (!clazz.isInstance(argument)) {
       throw new WrongArgumentTypeException(symbol);
     }
@@ -40,7 +40,7 @@ public abstract class Builtin implements Evaluable {
   }
   
   @SafeVarargs
-  protected final Expression ensureArgumentType(Expression argument, Class<? extends Expression>... clazzes) {
+  final Expression ensureArgumentType(Expression argument, Class<? extends Expression>... clazzes) {
     boolean match = false;
     for (Class<?> clazz : clazzes) {
       if (clazz.isInstance(argument)) {

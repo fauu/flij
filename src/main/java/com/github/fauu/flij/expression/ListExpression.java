@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class ListExpression extends Expression implements SequenceExpression<ListExpression, Expression> {
 
-  private List<Expression> children;
+  private final List<Expression> children;
   
   public ListExpression() {
     this.children = Collections.emptyList();

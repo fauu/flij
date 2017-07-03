@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public abstract class AtomExpression<T> extends Expression {
 
-  protected T value;
+  T value;
   
-  protected AtomExpression() { }
+  AtomExpression() { }
   
-  public AtomExpression(T value) {
+  AtomExpression(T value) {
     this.value = value;
   }
 

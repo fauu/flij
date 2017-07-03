@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.github.fauu.flij.evaluator.environment.Environment;
+import com.github.fauu.flij.repl.Repl;
 
 public class HelpCommand extends ReplCommand {
   
@@ -12,19 +13,14 @@ public class HelpCommand extends ReplCommand {
       "Available special commands:"
       );
   
-  private String commandPrefix;
   private Map<String, String> commandEntries;
 
-  public HelpCommand(String commandPrefix) {
-    this.commandPrefix = commandPrefix;
-  }
-  
   @Override
   public void execute(String[] args, Environment globalEnvironment) {
     Objects.requireNonNull(commandEntries);
     
     System.out.println(HEADER_TEXT);
-    commandEntries.forEach((keyword, helpEntry) -> System.out.println(commandPrefix + keyword + " - " + helpEntry));
+    commandEntries.forEach((keyword, entry) -> System.out.printf("%s%s - %s\n", Repl.COMMAND_PREFIX, keyword, entry));
   }
   
   public String getHelpEntry() {

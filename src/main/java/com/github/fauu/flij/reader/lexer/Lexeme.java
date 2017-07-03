@@ -2,8 +2,8 @@ package com.github.fauu.flij.reader.lexer;
 
 public class Lexeme {
 
-  private TokenType tokenType;
-  private String value;
+  private final TokenType tokenType;
+  private final String value;
 
   public Lexeme(TokenType type) {
     this(type, String.valueOf(type.getCharacterValue()));

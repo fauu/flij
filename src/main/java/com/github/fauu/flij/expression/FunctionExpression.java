@@ -6,8 +6,8 @@ import java.util.LinkedList;
 
 public class FunctionExpression extends Expression {
   
-  private List<String> argumentSymbols;
-  private Expression body;
+  private final List<String> argumentSymbols;
+  private final Expression body;
   
   public FunctionExpression(List<String> argumentSymbols, Expression body) {
     this.argumentSymbols = new LinkedList<>(argumentSymbols);

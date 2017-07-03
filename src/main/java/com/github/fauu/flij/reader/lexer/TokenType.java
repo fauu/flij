@@ -22,10 +22,9 @@ public enum TokenType {
 
   private char character;
   private Pattern pattern;
-  
-  public static List<TokenType> characterValues;
-  public static List<TokenType> patternValues;
-  public static Map<Character, TokenType> charToTokenType;
+
+  private static List<TokenType> patternValues;
+  private static final Map<Character, TokenType> charToTokenType;
 
   TokenType(char character) {
     this.character = character;
@@ -46,8 +45,8 @@ public enum TokenType {
         characterValues.add(value);
       }
     }
+
     TokenType.patternValues = Collections.unmodifiableList(patternValues);
-    TokenType.characterValues = Collections.unmodifiableList(characterValues);
 
     charToTokenType = characterValues.stream().collect(toMap(TokenType::getCharacterValue, Function.identity()));
   }
@@ -82,6 +81,10 @@ public enum TokenType {
     }
     
     return pattern;
+  }
+
+  public static List<TokenType> getPatternValues() {
+    return patternValues;
   }
 
 }

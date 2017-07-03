@@ -20,14 +20,14 @@ import com.github.fauu.flij.repl.command.ReplCommand;
 
 public class Repl {
 
-  private static final String COMMAND_PREFIX = "\\";
+  public static final String COMMAND_PREFIX = "\\";
 
-  private Reader reader;
-  private Evaluator evaluator;
-  private Environment environment;
-  private Printer printer;
+  private final Reader reader;
+  private final Evaluator evaluator;
+  private final Environment environment;
+  private final Printer printer;
 
-  private Map<String, ReplCommand> commands = new HashMap<>();
+  private final Map<String, ReplCommand> commands = new HashMap<>();
 
   public Repl(Reader reader, Evaluator evaluator, Environment environment, Printer printer) {
     Objects.requireNonNull(reader);
@@ -46,7 +46,7 @@ public class Repl {
   private void registerCommands() {
     commands.put("exit", new ExitCommand());
     commands.put("symbols", new ListSymbolsCommand());
-    commands.put("help", new HelpCommand(COMMAND_PREFIX));
+    commands.put("help", new HelpCommand());
 
     Map<String, String> helpEntries = commands.entrySet()
         .stream()

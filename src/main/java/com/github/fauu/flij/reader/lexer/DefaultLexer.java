@@ -87,7 +87,7 @@ public class DefaultLexer implements Lexer {
   }
 
   private Optional<Lexeme> tryMatchingToken(String token) {
-    for (TokenType tokenType : TokenType.patternValues) {
+    for (TokenType tokenType : TokenType.getPatternValues()) {
       Matcher matcher = tokenType.getPatternValue().matcher(token);
 
       if (matcher.find()) {

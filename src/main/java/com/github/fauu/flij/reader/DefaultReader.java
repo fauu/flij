@@ -15,8 +15,8 @@ import com.github.fauu.flij.reader.parser.ListExpressionParser;
 
 public class DefaultReader implements Reader {
 
-  private Lexer lexer;
-  private ExpressionParser expressionParser;
+  private final Lexer lexer;
+  private final ExpressionParser expressionParser;
 
   public DefaultReader(Lexer lexer) {
     this.lexer = lexer;
@@ -50,7 +50,7 @@ public class DefaultReader implements Reader {
     do {
       String line = beginning ? firstLine : scanner.nextLine();
       listStartBias += determineListStartBiasForLine(line);
-      completedInputBuilder.append(line.trim() + '\n');
+      completedInputBuilder.append(line.trim()).append('\n');
       beginning = false;
     } while (listStartBias > 0);
 

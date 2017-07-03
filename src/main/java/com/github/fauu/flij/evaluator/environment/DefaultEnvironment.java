@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class DefaultEnvironment implements Environment {
   
-  private Environment parent;
+  private final Environment parent;
 
   private final Map<String, Evaluable> definitions = new HashMap<>();
   
