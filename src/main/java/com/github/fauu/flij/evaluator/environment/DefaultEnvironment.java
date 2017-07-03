@@ -13,7 +13,6 @@ public class DefaultEnvironment implements Environment {
   private Optional<Environment> parent;
 
   private final Map<String, Evaluable> definitions = new HashMap<>();
-  private int numImplicitDefinitions = 0;
   
   public DefaultEnvironment() {
     this(null);
@@ -38,13 +37,6 @@ public class DefaultEnvironment implements Environment {
   @Override
   public Map<String, Evaluable> getDefinitions() {
     return Collections.unmodifiableMap(definitions);
-  }
-  
-  @Override
-  public void setDefinition(Evaluable evaluable) {
-    String symbol = "$" + numImplicitDefinitions;
-    setDefinition(symbol, evaluable);
-    numImplicitDefinitions++;
   }
   
   @Override

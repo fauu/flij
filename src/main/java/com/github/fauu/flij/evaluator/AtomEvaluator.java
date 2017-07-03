@@ -26,7 +26,6 @@ public class AtomEvaluator implements ExpressionEvaluator<AtomExpression<?>> {
       }
     }
 
-    environment.setDefinition(input);
     return input;
   }
 

@@ -13,8 +13,6 @@ public interface Environment {
 
   Map<String, Evaluable> getDefinitions();
 
-  void setDefinition(Evaluable evaluable);
-
   void setDefinition(String symbol, Evaluable evaluable);
 
 }
