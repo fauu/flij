@@ -2,9 +2,9 @@ package com.github.fauu.flij.expression;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
+import com.github.fauu.flij.reader.lexer.Lexeme;
 
-import com.github.fauu.flij.reader.lexeme.Lexeme;
+import static java.util.stream.Collectors.toList;
 
 public class StringExpression extends AtomExpression<String>
     implements SequenceExpression<StringExpression, CharacterExpression> {

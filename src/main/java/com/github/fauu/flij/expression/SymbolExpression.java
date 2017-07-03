@@ -1,6 +1,6 @@
 package com.github.fauu.flij.expression;
 
-import com.github.fauu.flij.reader.lexeme.Lexeme;
+import com.github.fauu.flij.reader.lexer.Lexeme;
 
 public class SymbolExpression extends AtomExpression<String> {
   

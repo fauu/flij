@@ -17,6 +17,7 @@ import com.github.fauu.flij.evaluator.environment.Environment;
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.printer.DefaultPrinter;
 import com.github.fauu.flij.reader.Reader;
+import com.github.fauu.flij.reader.lexer.DefaultLexer;
 import com.github.fauu.flij.repl.Repl;
 import com.github.fauu.flij.reader.DefaultReader;
 
@@ -28,7 +29,7 @@ public class Flij {
   private static final String BUILTINS_PACKAGE_NAME = "com.github.fauu.flij.builtin";
 
   public void run() {
-    Reader reader = new DefaultReader();
+    Reader reader = new DefaultReader(new DefaultLexer());
     Evaluator evaluator = createEvaluator();
     Environment environment = createGlobalEnvironment(reader, evaluator);
 

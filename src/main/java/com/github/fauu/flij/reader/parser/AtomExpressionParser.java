@@ -8,7 +8,7 @@ import com.github.fauu.flij.expression.CharacterExpression;
 import com.github.fauu.flij.expression.NumberExpression;
 import com.github.fauu.flij.expression.StringExpression;
 import com.github.fauu.flij.expression.SymbolExpression;
-import com.github.fauu.flij.reader.lexeme.Lexeme;
+import com.github.fauu.flij.reader.lexer.Lexeme;
 
 public class AtomExpressionParser implements Parser<AtomExpression<?>> {
   

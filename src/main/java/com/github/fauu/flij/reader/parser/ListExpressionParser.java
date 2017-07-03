@@ -7,8 +7,8 @@ import java.util.Objects;
 
 import com.github.fauu.flij.expression.Expression;
 import com.github.fauu.flij.expression.ListExpression;
-import com.github.fauu.flij.reader.lexeme.Lexeme;
-import com.github.fauu.flij.reader.lexeme.TokenType;
+import com.github.fauu.flij.reader.lexer.Lexeme;
+import com.github.fauu.flij.reader.lexer.TokenType;
 
 public class ListExpressionParser implements Parser<ListExpression> {
 

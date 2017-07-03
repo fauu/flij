@@ -1,4 +1,4 @@
-package com.github.fauu.flij.reader.lexeme;
+package com.github.fauu.flij.reader.lexer;
 
 import java.util.Collections;
 import java.util.LinkedList;

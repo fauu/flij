@@ -1,4 +1,4 @@
-package com.github.fauu.flij.reader.lexeme;
+package com.github.fauu.flij.reader.lexer;
 
 public class Lexeme {
 
