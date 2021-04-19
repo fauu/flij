@@ -1,24 +1,20 @@
 # flij
 
-A toy interpreter for a toy LISP dialect I'm making up as I go along.
+flij was a toy interpreter for a toy LISP dialect, written in Java. The project was active in 2017.
 
-## Instructions
+## Usage
 
-Run ``build-and-run-repl.sh`` to do just that.
+Run `build-and-run-repl.sh` to do just that.
 
 ## Defined symbols
 
 ### [Built-ins](src/main/java/com/github/fauu/flij/builtin/)
 
-``
-put, putln, def, fn, quote, eval, apply, =, <, <=, >, >=, cond, if, and, or, \+, \-, \*, \/, sqrt, prepend, head, tail, len, subseq, reverse
-``
+`put, putln, def, fn, quote, eval, apply, =, <, <=, >, >=, cond, if, and, or, \+, \-, \*, \/, sqrt, prepend, head, tail, len, subseq, reverse`
 
 ### [Standard library](src/main/resources/lib/std.flj)
 
-``
-nil, inc, dec, sqr, fact, not, empty?, map, join-reversed, join
-``
+`nil, inc, dec, sqr, fact, not, empty?, map, join-reversed, join`
 
 ## Demo
 
@@ -112,4 +108,3 @@ x ;; => 3.0
 (map (fn (n) (+ n 100)) '(1 2 3)) ;; => (101.0 102.0 103.0)
 (map 'reverse '("er" "rev" "es")) ;; => ("re" "ver" "se")
 ```
-
